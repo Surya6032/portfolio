@@ -24,7 +24,7 @@
 <!-- Preconnect for fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 
 <!-- Print stylesheet for clean PDF/resume output -->
 <link rel="stylesheet" href="#" media="print" id="print-style-placeholder">
@@ -909,6 +909,85 @@ footer {
 }
 
 /* ============================================================
+   LANGUAGE TOGGLE
+   ============================================================ */
+.lang-toggle {
+  display: flex; align-items: center;
+  background: var(--cream); border: 1px solid var(--line);
+  border-radius: 30px; overflow: hidden;
+  transition: border-color var(--transition), background var(--transition);
+  flex-shrink: 0;
+}
+.lang-toggle button {
+  padding: .42em .85em;
+  font-size: .7rem; font-family: inherit;
+  font-weight: 400; letter-spacing: .06em;
+  background: none; border: none; cursor: pointer;
+  color: var(--muted); transition: all .2s;
+  min-height: 44px; white-space: nowrap;
+}
+.lang-toggle button.active {
+  background: var(--accent); color: #fff;
+  border-radius: 30px;
+}
+.lang-toggle button:not(.active):hover { color: var(--accent); }
+
+/* jp-mode font override */
+.jp-mode body,
+.jp-mode p,
+.jp-mode li,
+.jp-mode span,
+.jp-mode div,
+.jp-mode h1, .jp-mode h2, .jp-mode h3 {
+  font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+}
+
+/* Smooth text transition on lang switch */
+.lang-switching [data-en] { opacity: 0; }
+[data-en] { transition: opacity .15s ease; }
+
+
+
+/* ============================================================
+   JAPANESE MODAL
+   ============================================================ */
+.jp-modal{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.65);display:flex;align-items:flex-start;justify-content:center;padding:2rem 1rem;overflow-y:auto;backdrop-filter:blur(4px);animation:jpFadeIn .22s ease}
+.jp-modal[hidden]{display:none}
+@keyframes jpFadeIn{from{opacity:0}to{opacity:1}}
+.jp-modal-inner{background:#fff;border-radius:10px;width:100%;max-width:780px;box-shadow:0 24px 80px rgba(0,0,0,.25);overflow:hidden;animation:jpSlideUp .25s ease}
+@keyframes jpSlideUp{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+.jp-modal-header{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid #E8E4DC;background:#FAF8F4;position:sticky;top:0;z-index:10}
+.jp-modal-title{font-family:'Lora',serif;font-size:1.05rem;color:#1A1917;letter-spacing:-.01em}
+.jp-modal-actions{display:flex;align-items:center;gap:.6rem}
+.jp-btn-outline{display:inline-flex;align-items:center;gap:.4rem;padding:.48em 1em;background:transparent;border:1.5px solid #D4CEC4;border-radius:4px;font-size:.72rem;font-family:inherit;color:#1A1917;cursor:pointer;transition:border-color .18s,color .18s}
+.jp-btn-outline:hover{border-color:#B85C38;color:#B85C38}
+.jp-close{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:none;border:none;font-size:1rem;color:#7A766F;cursor:pointer;border-radius:4px;transition:background .18s,color .18s}
+.jp-close:hover{background:#F2EBE0;color:#1A1917}
+.jp-modal-body{padding:1.8rem 2rem;font-family:'Hiragino Sans','Yu Gothic','Meiryo','DM Sans',sans-serif;font-size:.86rem;color:#1A1917;line-height:1.75}
+.jp-hdr{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #1A1917;padding-bottom:1.1rem;margin-bottom:1.4rem}
+.jp-name{font-family:'Lora',serif;font-size:1.8rem;letter-spacing:-.02em;line-height:1.1}
+.jp-name em{font-style:italic;color:#B85C38}
+.jp-name-kana{font-size:.7rem;color:#7A766F;margin-top:.2rem;letter-spacing:.05em}
+.jp-role{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:#7A766F;margin-top:.28rem}
+.jp-contact{text-align:right;font-size:.76rem;color:#3D3A36;line-height:1.85}
+.jp-sec{margin-bottom:1.3rem}
+.jp-sec-label{font-size:.58rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#B85C38;margin-bottom:.38rem;border-bottom:1px solid #D4CEC4;padding-bottom:.22rem}
+.jp-summary{font-size:.81rem;color:#3D3A36;line-height:1.75}
+.jp-job{margin-bottom:.95rem}
+.jp-job-hdr{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.12rem;flex-wrap:wrap;gap:.25rem}
+.jp-co{font-family:'Lora',serif;font-size:.92rem;color:#1A1917}
+.jp-date{font-size:.66rem;color:#7A766F;letter-spacing:.06em}
+.jp-jobrole{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:#B85C38;margin-bottom:.38rem}
+.jp-ul{padding-left:.85rem;margin-top:.22rem}
+.jp-ul li{font-size:.76rem;color:#3D3A36;margin-bottom:.16rem;line-height:1.5}
+.jp-ul li strong{font-weight:600;color:#1A1917}
+.jp-metric{color:#B85C38;font-weight:500}
+.jp-pills{display:flex;flex-wrap:wrap;gap:.28rem;margin-top:.28rem}
+.jp-pill{font-size:.66rem;color:#3D3A36;background:#F2EBE0;border:1px solid #D4CEC4;padding:.14em .52em;border-radius:14px}
+.jp-edu-row{display:flex;justify-content:space-between;align-items:center;font-size:.8rem}
+@media(max-width:600px){.jp-modal{padding:0;align-items:flex-end}.jp-modal-inner{border-radius:14px 14px 0 0;max-height:92vh}.jp-modal-body{padding:1.3rem 1.1rem}.jp-hdr{flex-direction:column;gap:.5rem}.jp-contact{text-align:left}}
+
+/* ============================================================
    PRINT / RESUME STYLES
    ============================================================ */
 @media print {
@@ -946,16 +1025,21 @@ footer {
 <div class="scroll-bar" id="scrollBar" role="presentation" aria-hidden="true"></div>
 
 <!-- Toast notification -->
-<div class="toast" id="toast" role="status" aria-live="polite">Email copied!</div>
+<div class="toast" id="toast" role="status" aria-live="polite" data-en="Email copied!" data-jp="メールアドレスをコピーしました！">Email copied!</div>
 
 <!-- Mobile nav overlay -->
 <div class="mobile-nav" id="mobileNav" aria-hidden="true">
-  <a href="#skills" onclick="closeMobileNav()">Skills</a>
-  <a href="#experience" onclick="closeMobileNav()">Work</a>
-  <a href="#projects" onclick="closeMobileNav()">Projects</a>
-  <a href="#beyond" onclick="closeMobileNav()">Beyond</a>
-  <a href="#next" onclick="closeMobileNav()">Goals</a>
-  <a href="#contact" onclick="closeMobileNav()">Contact</a>
+  <a href="#skills" onclick="closeMobileNav()" data-en="Skills" data-jp="スキル">Skills</a>
+  <a href="#experience" onclick="closeMobileNav()" data-en="Work" data-jp="職歴">Work</a>
+  <a href="#projects" onclick="closeMobileNav()" data-en="Projects" data-jp="プロジェクト">Projects</a>
+  <a href="#beyond" onclick="closeMobileNav()" data-en="Beyond" data-jp="趣味・価値観">Beyond</a>
+  <a href="#next" onclick="closeMobileNav()" data-en="Goals" data-jp="目標">Goals</a>
+  <a href="#contact" onclick="closeMobileNav()" data-en="Contact" data-jp="連絡先">Contact</a>
+  <!-- Mobile lang toggle -->
+  <div class="lang-toggle" style="margin-top:.5rem" role="group" aria-label="Language">
+    <button onclick="setLang('en');closeMobileNav()" id="langENm" class="active">EN</button>
+    <button onclick="setLang('jp');closeMobileNav()" id="langJPm">日本語</button>
+  </div>
 </div>
 
 <!-- Navigation -->
@@ -964,13 +1048,19 @@ footer {
 
   <div class="nav-right">
     <ul class="nav-links" role="list">
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#experience">Work</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#beyond">Beyond</a></li>
-      <li><a href="#next">Goals</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#skills" data-en="Skills" data-jp="スキル">Skills</a></li>
+      <li><a href="#experience" data-en="Work" data-jp="職歴">Work</a></li>
+      <li><a href="#projects" data-en="Projects" data-jp="プロジェクト">Projects</a></li>
+      <li><a href="#beyond" data-en="Beyond" data-jp="趣味・価値観">Beyond</a></li>
+      <li><a href="#next" data-en="Goals" data-jp="目標">Goals</a></li>
+      <li><a href="#contact" data-en="Contact" data-jp="連絡先">Contact</a></li>
     </ul>
+
+    <!-- Language toggle -->
+    <div class="lang-toggle" role="group" aria-label="Language selection">
+      <button id="langEN" class="active" onclick="setLang('en')" aria-pressed="true" aria-label="Switch to English">EN</button>
+      <button id="langJP" onclick="setLang('jp')" aria-pressed="false" aria-label="日本語に切り替え">日本語</button>
+    </div>
 
     <button
       class="theme-btn"
@@ -1004,12 +1094,12 @@ footer {
   <div class="hero-glow" aria-hidden="true"></div>
 
   <div class="hero-text">
-    <p class="hero-eyebrow">Senior Data Engineer &middot; Dallas, TX</p>
+    <p class="hero-eyebrow"><p class="hero-eyebrow" data-en="Senior Data Engineer · Dallas, TX" data-jp="シニアデータエンジニア · テキサス州ダラス">Senior Data Engineer &middot; Dallas, TX</p>
     <h1 class="hero-name">I turn messy<br>data into <em>clarity.</em></h1>
-    <p class="hero-bio">Hey, I'm Surya — a data engineer who thinks five moves ahead. I design Medallion Lakehouses, lead engineering teams, and build pipelines that never miss a move. Five years at Cencora shipping multi-million dollar data infrastructure. Now ready for AI scale.</p>
-    <p class="hero-stack">Expert in Python · PySpark · Databricks · Delta Lake · Azure · Medallion Architecture</p>
+    <p class="hero-bio" data-en="Hey, I'm Surya — a data engineer who thinks five moves ahead. I design Medallion Lakehouses, lead engineering teams, and build pipelines that never miss a move. Five years at Cencora shipping multi-million dollar data infrastructure. Now ready for AI scale." data-jp="スーリャです。5手先を読むデータエンジニア。メダリオンレイクハウスの設計、エンジニアチームのリード、決して止まらないパイプラインの構築が専門です。Cencora社で5年間、数億円規模のデータインフラを構築。今、AIスケールに挑む準備ができています。">Hey, I'm Surya — a data engineer who thinks five moves ahead. I design Medallion Lakehouses, lead engineering teams, and build pipelines that never miss a move. Five years at Cencora shipping multi-million dollar data infrastructure. Now ready for AI scale.</p>
+    <p class="hero-stack" data-en="Expert in Python · PySpark · Databricks · Delta Lake · Azure · Medallion Architecture" data-jp="エキスパート：Python · PySpark · Databricks · Delta Lake · Azure · メダリオンアーキテクチャ">Expert in Python · PySpark · Databricks · Delta Lake · Azure · Medallion Architecture</p>
     <div class="hero-scroll-hint">
-      <a href="#skills" class="btn-ghost" aria-label="Scroll down to see my skills and work">See my work ↓</a>
+      <a href="#skills" class="btn-ghost" aria-label="Scroll down to see my skills and work"><span data-en="See my work ↓" data-jp="実績を見る ↓">See my work ↓</span></a>
     </div>
   </div>
 
@@ -1039,7 +1129,7 @@ footer {
 <!-- Expertise strip -->
 <div class="expertise-strip" aria-label="Core expertise areas">
   <div class="expertise-strip-inner">
-    <span class="expertise-strip-label">Core expertise</span>
+    <span class="expertise-strip-label" data-en="Core expertise" data-jp="主な専門スキル">Core expertise</span>
     <div class="expertise-pills">
       <span class="epill">Python &amp; PySpark</span>
       <span class="epill">Apache Spark</span>
@@ -1062,21 +1152,21 @@ footer {
 <!-- SKILLS -->
 <section id="skills" class="skills-bg" aria-labelledby="skills-title">
   <div class="section-inner">
-    <p class="section-tag reveal">What I work with</p>
-    <h2 class="section-title reveal" id="skills-title">Tools of the <em>trade</em></h2>
-    <p class="section-sub reveal">Comfortable across the full data stack — from raw ingestion to clean, queryable, trusted datasets.</p>
+    <p class="section-tag reveal" data-en="What I work with" data-jp="使用技術">What I work with</p>
+    <h2 class="section-title reveal" id="skills-title" data-en="Tools of the trade" data-jp="技術スタック">Tools of the <em>trade</em></h2>
+    <p class="section-sub reveal" data-en="Comfortable across the full data stack — from raw ingestion to clean, queryable, trusted datasets." data-jp="生データの取り込みからクリーンで信頼性の高いデータセットまで、データスタック全体に精通しています。">Comfortable across the full data stack — from raw ingestion to clean, queryable, trusted datasets.</p>
 
     <div class="skill-legend reveal" aria-label="Proficiency legend">
-      <span class="legend-item"><span class="legend-dot expert" aria-hidden="true"></span>Expert</span>
-      <span class="legend-item"><span class="legend-dot proficient" aria-hidden="true"></span>Proficient</span>
-      <span class="legend-item"><span class="legend-dot familiar" aria-hidden="true"></span>Familiar</span>
+      <span class="legend-item"><span class="legend-dot expert" aria-hidden="true"></span><span data-en="Expert" data-jp="エキスパート">Expert</span></span>
+      <span class="legend-item"><span class="legend-dot proficient" aria-hidden="true"></span><span data-en="Proficient" data-jp="習熟">Proficient</span></span>
+      <span class="legend-item"><span class="legend-dot familiar" aria-hidden="true"></span><span data-en="Familiar" data-jp="基礎知識">Familiar</span></span>
     </div>
 
     <div class="skills-grid reveal">
       <div class="skill-card">
         <div class="skill-card-head">
           <div class="skill-icon" aria-hidden="true">🐍</div>
-          <span class="skill-card-name">Languages</span>
+          <span class="skill-card-name" data-en="Languages" data-jp="プログラミング言語">Languages</span>
         </div>
         <div class="pill-row">
           <span class="pill expert">Python</span>
@@ -1088,7 +1178,7 @@ footer {
       <div class="skill-card">
         <div class="skill-card-head">
           <div class="skill-icon" aria-hidden="true">⚡</div>
-          <span class="skill-card-name">Distributed Processing</span>
+          <span class="skill-card-name" data-en="Distributed Processing" data-jp="分散処理">Distributed Processing</span>
         </div>
         <div class="pill-row">
           <span class="pill expert">Apache Spark</span>
@@ -1101,7 +1191,7 @@ footer {
       <div class="skill-card">
         <div class="skill-card-head">
           <div class="skill-icon" aria-hidden="true">🔁</div>
-          <span class="skill-card-name">Pipelines &amp; Orchestration</span>
+          <span class="skill-card-name" data-en="Pipelines &amp; Orchestration" data-jp="パイプライン・オーケストレーション">Pipelines &amp; Orchestration</span>
         </div>
         <div class="pill-row">
           <span class="pill expert">Databricks</span>
@@ -1115,7 +1205,7 @@ footer {
       <div class="skill-card">
         <div class="skill-card-head">
           <div class="skill-icon" aria-hidden="true">☁️</div>
-          <span class="skill-card-name">Cloud &amp; Storage</span>
+          <span class="skill-card-name" data-en="Cloud &amp; Storage" data-jp="クラウド・ストレージ">Cloud &amp; Storage</span>
         </div>
         <div class="pill-row">
           <span class="pill expert">Azure Data Lake</span>
@@ -1128,7 +1218,7 @@ footer {
       <div class="skill-card">
         <div class="skill-card-head">
           <div class="skill-icon" aria-hidden="true">🏗️</div>
-          <span class="skill-card-name">Architecture &amp; Design</span>
+          <span class="skill-card-name" data-en="Architecture &amp; Design" data-jp="アーキテクチャ・設計">Architecture &amp; Design</span>
         </div>
         <div class="pill-row">
           <span class="pill expert">Medallion Lakehouse</span>
@@ -1141,7 +1231,7 @@ footer {
       <div class="skill-card">
         <div class="skill-card-head">
           <div class="skill-icon" aria-hidden="true">🛠️</div>
-          <span class="skill-card-name">Engineering Practices</span>
+          <span class="skill-card-name" data-en="Engineering Practices" data-jp="エンジニアリングプラクティス">Engineering Practices</span>
         </div>
         <div class="pill-row">
           <span class="pill expert">CI/CD</span>
@@ -1159,72 +1249,72 @@ footer {
 <!-- EXPERIENCE -->
 <section id="experience" aria-labelledby="experience-title">
   <div class="section-inner">
-    <p class="section-tag reveal">Where I've worked</p>
-    <h2 class="section-title reveal" id="experience-title">A track record of <em>impact</em></h2>
-    <p class="section-sub reveal">Five years building data systems real businesses depend on — pipelines that never sleep, teams that grow, and outcomes that show up in the numbers.</p>
+    <p class="section-tag reveal" data-en="Where I've worked" data-jp="職歴">Where I've worked</p>
+    <h2 class="section-title reveal" id="experience-title" data-en="A track record of impact" data-jp="実績の軌跡">A track record of <em>impact</em></h2>
+    <p class="section-sub reveal" data-en="Five years building data systems real businesses depend on — pipelines that never sleep, teams that grow, and outcomes that show up in the numbers." data-jp="5年間、企業が依存するデータシステムを構築してきました。止まらないパイプライン、成長するチーム、数字に現れる成果。">Five years building data systems real businesses depend on — pipelines that never sleep, teams that grow, and outcomes that show up in the numbers.</p>
 
     <div class="timeline reveal">
       <div class="tl-item">
-        <div class="tl-date">Feb 2023 — Present</div>
+        <div class="tl-date" data-en="Feb 2023 — Present" data-jp="2023年2月〜現在">Feb 2023 — Present</div>
         <div class="tl-company">Cencora</div>
-        <div class="tl-role">Senior Data Engineer &middot; Dallas, TX</div>
+        <div class="tl-role" data-en="Senior Data Engineer · Dallas, TX" data-jp="シニアデータエンジニア · テキサス州ダラス">Senior Data Engineer &middot; Dallas, TX</div>
         <div class="tl-bullets">
           <div class="tl-bullet">
             <div class="tl-dot" aria-hidden="true"></div>
-            <p><strong>Architected a Medallion Lakehouse</strong> on Databricks + Delta Lake (Bronze→Silver→Gold) centralizing clinical, financial, and pharmacy data — with CDF, Schema Enforcement, and Z-Order clustering serving <span class="metric">12+ downstream teams</span>.</p>
+            <p data-en="Architected a Medallion Lakehouse on Databricks + Delta Lake (Bronze→Silver→Gold) centralizing clinical, financial, and pharmacy data — with CDF, Schema Enforcement, and Z-Order clustering serving 12+ downstream teams." data-jp="Databricks + Delta Lake上にメダリオンレイクハウス（Bronze→Silver→Gold）を設計。臨床・財務・薬局データを一元化し、CDF、スキーマ強制、Z-Orderクラスタリングで12以上の下流チームに提供。"><strong>Architected a Medallion Lakehouse</strong> on Databricks + Delta Lake (Bronze→Silver→Gold) centralizing clinical, financial, and pharmacy data — with CDF, Schema Enforcement, and Z-Order clustering serving <span class="metric">12+ downstream teams</span>.</p>
           </div>
           <div class="tl-bullet">
             <div class="tl-dot" aria-hidden="true"></div>
-            <p><strong>Reduced pipeline latency by ~70%</strong> through Spark optimization, adaptive query execution, smart partitioning, and caching — enabling <span class="metric">near-real-time</span> financial reporting for leadership decisions.</p>
+            <p data-en="Reduced pipeline latency by ~70% through Spark optimization, adaptive query execution, smart partitioning, and caching — enabling near-real-time financial reporting for leadership decisions." data-jp="Spark最適化、適応型クエリ実行、スマートパーティショニング、キャッシュにより、パイプライン遅延を約70%削減。経営陣の意思決定を支える準リアルタイムの財務レポートを実現。"><strong>Reduced pipeline latency by ~70%</strong> through Spark optimization, adaptive query execution, smart partitioning, and caching — enabling <span class="metric">near-real-time</span> financial reporting for leadership decisions.</p>
           </div>
           <div class="tl-bullet">
             <div class="tl-dot" aria-hidden="true"></div>
-            <p><strong>Led a team of 3–5 engineers</strong>, defined ETL design standards and data governance processes, and mentored two junior engineers to mid-level promotion.</p>
+            <p data-en="Led a team of 3–5 engineers, defined ETL design standards and data governance processes, and mentored two junior engineers to mid-level promotion." data-jp="3〜5名のエンジニアチームをリード。ETL設計標準とデータガバナンスプロセスを策定し、ジュニアエンジニア2名をミッドレベルに育成。"><strong>Led a team of 3–5 engineers</strong>, defined ETL design standards and data governance processes, and mentored two junior engineers to mid-level promotion.</p>
           </div>
           <div class="tl-bullet">
             <div class="tl-dot" aria-hidden="true"></div>
-            <p>Shipped <strong>CI/CD pipelines</strong> via GitHub Actions + Azure DevOps with ARM templates; implemented Great Expectations data quality checks with <span class="metric">SLA 99.9%</span> uptime on critical pipelines.</p>
+            <p data-en="Shipped CI/CD pipelines via GitHub Actions + Azure DevOps with ARM templates; implemented Great Expectations data quality checks with SLA 99.9% uptime on critical pipelines." data-jp="GitHub Actions + Azure DevOpsでCI/CDパイプラインを構築。ARM テンプレートとGreat Expectationsによるデータ品質チェックで重要パイプラインのSLA 99.9%を達成。">Shipped <strong>CI/CD pipelines</strong> via GitHub Actions + Azure DevOps with ARM templates; implemented Great Expectations data quality checks with <span class="metric">SLA 99.9%</span> uptime on critical pipelines.</p>
           </div>
           <div class="tl-bullet">
             <div class="tl-dot" aria-hidden="true"></div>
-            <p>Delivered <strong>multi-million dollar projects</strong> that compressed data latency from hours to minutes, changing how finance and operations make strategic calls.</p>
+            <p data-en="Delivered multi-million dollar projects that compressed data latency from hours to minutes, changing how finance and operations make strategic calls." data-jp="数百万ドル規模のプロジェクトを複数納品。データ遅延を数時間から数分に圧縮し、財務・業務の戦略的意思決定を変革。">Delivered <strong>multi-million dollar projects</strong> that compressed data latency from hours to minutes, changing how finance and operations make strategic calls.</p>
           </div>
         </div>
-        <div class="impact-badge" aria-label="Key impact">⚡ Hours → minutes: financial reporting latency</div>
+        <div class="impact-badge" aria-label="Key impact" data-en="⚡ Hours → minutes: financial reporting latency" data-jp="⚡ 数時間→数分：財務レポートの遅延">⚡ Hours → minutes: financial reporting latency</div>
       </div>
 
       <div class="tl-item">
-        <div class="tl-date">May 2021 — Feb 2023</div>
-        <div class="tl-company">Cencora <span class="tl-company-note">&middot; Contract → Promoted to FTE</span></div>
-        <div class="tl-role">Data Engineer &middot; Dallas, TX</div>
+        <div class="tl-date" data-en="May 2021 — Feb 2023" data-jp="2021年5月〜2023年2月">May 2021 — Feb 2023</div>
+        <div class="tl-company">Cencora <span class="tl-company-note" data-en="· Contract → Promoted to FTE" data-jp="· 契約社員→正社員">&middot; Contract → Promoted to FTE</span></div>
+        <div class="tl-role" data-en="Data Engineer · Dallas, TX" data-jp="データエンジニア · テキサス州ダラス">Data Engineer &middot; Dallas, TX</div>
         <div class="tl-bullets">
           <div class="tl-bullet">
             <div class="tl-dot" aria-hidden="true"></div>
-            <p>Built scalable ingestion pipelines on <strong>Databricks, Azure Data Factory, and PySpark</strong> processing <span class="metric">multi-TB/day</span> of clinical, financial, and pharmacy data with zero data-loss SLAs.</p>
+            <p data-en="Built scalable ingestion pipelines on Databricks, Azure Data Factory, and PySpark processing multi-TB/day of clinical, financial, and pharmacy data with zero data-loss SLAs." data-jp="Databricks・Azure Data Factory・PySparkでスケーラブルなインジェストパイプラインを構築。臨床・財務・薬局データを日次マルチTB規模でゼロデータロスSLAにて処理。">Built scalable ingestion pipelines on <strong>Databricks, Azure Data Factory, and PySpark</strong> processing <span class="metric">multi-TB/day</span> of clinical, financial, and pharmacy data with zero data-loss SLAs.</p>
           </div>
           <div class="tl-bullet">
             <div class="tl-dot" aria-hidden="true"></div>
-            <p>Created <strong>canonical single-source-of-truth tables</strong> that became the trusted foundation for analytics and operational reporting across 8+ business units.</p>
+            <p data-en="Created canonical single-source-of-truth tables that became the trusted foundation for analytics and operational reporting across 8+ business units." data-jp="8以上の事業部門の分析・業務レポートの信頼できる基盤となる正規化シングルソーステーブルを設計・実装。">Created <strong>canonical single-source-of-truth tables</strong> that became the trusted foundation for analytics and operational reporting across 8+ business units.</p>
           </div>
           <div class="tl-bullet">
             <div class="tl-dot" aria-hidden="true"></div>
-            <p>Developed complex Spark transformation jobs and automated production workflows with retry logic, alerting, and monitoring via Databricks Jobs.</p>
+            <p data-en="Developed complex Spark transformation jobs and automated production workflows with retry logic, alerting, and monitoring via Databricks Jobs." data-jp="複雑なSpark変換ジョブを開発し、Databricks Jobsでリトライロジック・アラート・監視付きの本番ワークフローを自動化。">Developed complex Spark transformation jobs and automated production workflows with retry logic, alerting, and monitoring via Databricks Jobs.</p>
           </div>
         </div>
       </div>
 
       <div class="tl-item">
-        <div class="tl-date">Feb 2021 — May 2021</div>
+        <div class="tl-date" data-en="Feb 2021 — May 2021" data-jp="2021年2月〜2021年5月">Feb 2021 — May 2021</div>
         <div class="tl-company">Fuge Technologies Inc</div>
-        <div class="tl-role">Data Engineer &middot; Dallas–Fort Worth, TX</div>
+        <div class="tl-role" data-en="Data Engineer · Dallas–Fort Worth, TX" data-jp="データエンジニア · テキサス州DFW">Data Engineer &middot; Dallas–Fort Worth, TX</div>
         <div class="tl-bullets">
           <div class="tl-bullet">
             <div class="tl-dot" aria-hidden="true"></div>
-            <p>Built <strong>Hadoop/Hive batch pipelines</strong> and optimized queries for large-scale data processing workloads.</p>
+            <p data-en="Built Hadoop/Hive batch pipelines and optimized queries for large-scale data processing workloads." data-jp="Hadoop/Hiveバッチパイプラインを構築し、大規模データ処理ワークロードのクエリを最適化。">Built <strong>Hadoop/Hive batch pipelines</strong> and optimized queries for large-scale data processing workloads.</p>
           </div>
           <div class="tl-bullet">
             <div class="tl-dot" aria-hidden="true"></div>
-            <p>Established cloud data ingestion workflows into <strong>Azure Data Lake</strong> via Azure Data Factory.</p>
+            <p data-en="Established cloud data ingestion workflows into Azure Data Lake via Azure Data Factory." data-jp="Azure Data Factoryを介したAzure Data Lakeへのクラウドデータ取り込みワークフローを確立。">Established cloud data ingestion workflows into <strong>Azure Data Lake</strong> via Azure Data Factory.</p>
           </div>
         </div>
       </div>
@@ -1233,9 +1323,9 @@ footer {
     <div class="edu-card reveal" role="region" aria-label="Education">
       <div class="edu-icon" aria-hidden="true">🎓</div>
       <div>
-        <div class="edu-label">Education</div>
-        <div class="edu-degree">B.S. in Computer Science</div>
-        <div class="edu-school">University of North Alabama, Florence AL &nbsp;·&nbsp; 2018–2020</div>
+        <div class="edu-label" data-en="Education" data-jp="学歴">Education</div>
+        <div class="edu-degree" data-en="B.S. in Computer Science" data-jp="コンピュータサイエンス学士">B.S. in Computer Science</div>
+        <div class="edu-school" data-en="University of North Alabama, Florence AL · 2018–2020" data-jp="ノースアラバマ大学 · 2018–2020">University of North Alabama, Florence AL &nbsp;·&nbsp; 2018–2020</div>
       </div>
     </div>
   </div>
@@ -1244,21 +1334,21 @@ footer {
 <!-- PROJECTS -->
 <section id="projects" class="projects-bg" aria-labelledby="projects-title">
   <div class="section-inner">
-    <p class="section-tag reveal">Case studies</p>
-    <h2 class="section-title reveal" id="projects-title">Work that <em>moved the needle</em></h2>
-    <p class="section-sub reveal">Real problems, concrete approaches, measurable outcomes.</p>
+    <p class="section-tag reveal" data-en="Case studies" data-jp="ケーススタディ">Case studies</p>
+    <h2 class="section-title reveal" id="projects-title" data-en="Work that moved the needle" data-jp="成果を出した仕事">Work that <em>moved the needle</em></h2>
+    <p class="section-sub reveal" data-en="Real problems, concrete approaches, measurable outcomes." data-jp="実際の課題、具体的なアプローチ、測定可能な成果。">Real problems, concrete approaches, measurable outcomes.</p>
 
     <div class="projects-grid reveal">
       <article class="project-card">
         <div class="project-num" aria-hidden="true">01</div>
-        <h3 class="project-name">Financial Reporting Lakehouse</h3>
+        <h3 class="project-name" data-en="Financial Reporting Lakehouse" data-jp="財務レポート用レイクハウス">Financial Reporting Lakehouse</h3>
         <div class="project-row">
-          <span class="project-label">Problem</span>
-          <p class="project-text">Financial reports ran hours-old batch jobs — leadership made decisions on stale data, causing misaligned budgets and missed SLAs across 8+ business units.</p>
+          <span class="project-label" data-en="Problem" data-jp="課題">Problem</span>
+          <p class="project-text" data-en="Financial reports ran hours-old batch jobs — leadership made decisions on stale data, causing misaligned budgets and missed SLAs across 8+ business units." data-jp="財務レポートは数時間前のバッチデータに依存し、経営陣は古い情報で意思決定。8以上の事業部門で予算の不一致とSLA未達が発生していた。">Financial reports ran hours-old batch jobs — leadership made decisions on stale data, causing misaligned budgets and missed SLAs across 8+ business units.</p>
         </div>
         <div class="project-row">
-          <span class="project-label">Approach</span>
-          <p class="project-text">Designed a Bronze→Silver→Gold Medallion Lakehouse with Change Data Feed, Z-Order clustering, and incremental loading patterns to replace daily batch with near-real-time streams.</p>
+          <span class="project-label" data-en="Approach" data-jp="アプローチ">Approach</span>
+          <p class="project-text" data-en="Designed a Bronze→Silver→Gold Medallion Lakehouse with Change Data Feed, Z-Order clustering, and incremental loading patterns to replace daily batch with near-real-time streams." data-jp="Change Data Feed、Z-Orderクラスタリング、増分ロードパターンを備えたBronze→Silver→Goldメダリオンレイクハウスを設計。日次バッチを準リアルタイムストリームに置き換え。">Designed a Bronze→Silver→Gold Medallion Lakehouse with Change Data Feed, Z-Order clustering, and incremental loading patterns to replace daily batch with near-real-time streams.</p>
         </div>
         <div class="project-stack">
           <span class="stack-tag">Databricks</span>
@@ -1267,19 +1357,19 @@ footer {
           <span class="stack-tag">Azure Data Factory</span>
           <span class="stack-tag">CDF</span>
         </div>
-        <div class="project-result">⚡ Latency: hours → &lt;5 min &nbsp;·&nbsp; 12+ teams unblocked</div>
+        <div class="project-result" data-en="⚡ Latency: hours → &lt;5 min · 12+ teams unblocked" data-jp="⚡ 遅延：数時間→5分以内 · 12チーム以上が恩恵">⚡ Latency: hours → &lt;5 min &nbsp;·&nbsp; 12+ teams unblocked</div>
       </article>
 
       <article class="project-card">
         <div class="project-num" aria-hidden="true">02</div>
-        <h3 class="project-name">Canonical Source-of-Truth Platform</h3>
+        <h3 class="project-name" data-en="Canonical Source-of-Truth Platform" data-jp="正規化シングルソースプラットフォーム">Canonical Source-of-Truth Platform</h3>
         <div class="project-row">
-          <span class="project-label">Problem</span>
-          <p class="project-text">8+ teams were building their own ingestion pipelines from the same raw sources — duplicate work, conflicting definitions, and no agreed-upon "truth" for clinical or pharmacy data.</p>
+          <span class="project-label" data-en="Problem" data-jp="課題">Problem</span>
+          <p class="project-text" data-en='8+ teams were building their own ingestion pipelines from the same raw sources — duplicate work, conflicting definitions, and no agreed-upon "truth" for clinical or pharmacy data.' data-jp="8以上のチームが同じ生データから独自のパイプラインを構築。重複作業、定義の競合、臨床・薬局データの統一的な「真実」が存在しなかった。">8+ teams were building their own ingestion pipelines from the same raw sources — duplicate work, conflicting definitions, and no agreed-upon "truth" for clinical or pharmacy data.</p>
         </div>
         <div class="project-row">
-          <span class="project-label">Approach</span>
-          <p class="project-text">Built idempotent, schema-enforced canonical tables as the single ingestion layer, with automated data quality checks via Great Expectations and SLA alerting for any upstream drift.</p>
+          <span class="project-label" data-en="Approach" data-jp="アプローチ">Approach</span>
+          <p class="project-text" data-en="Built idempotent, schema-enforced canonical tables as the single ingestion layer, with automated data quality checks via Great Expectations and SLA alerting for any upstream drift." data-jp="冪等でスキーマ強制された正規化テーブルを単一インジェスト層として構築。Great Expectationsによる自動データ品質チェックとアップストリームのドリフトアラートを実装。">Built idempotent, schema-enforced canonical tables as the single ingestion layer, with automated data quality checks via Great Expectations and SLA alerting for any upstream drift.</p>
         </div>
         <div class="project-stack">
           <span class="stack-tag">Azure Data Lake</span>
@@ -1287,19 +1377,19 @@ footer {
           <span class="stack-tag">Databricks Jobs</span>
           <span class="stack-tag">Azure DevOps</span>
         </div>
-        <div class="project-result">📦 Multi-TB/day &nbsp;·&nbsp; 99.9% SLA &nbsp;·&nbsp; Eliminated 5+ redundant pipelines</div>
+        <div class="project-result" data-en="📦 Multi-TB/day · 99.9% SLA · Eliminated 5+ redundant pipelines" data-jp="📦 日次マルチTB · SLA 99.9% · 5以上の重複パイプラインを廃止">📦 Multi-TB/day &nbsp;·&nbsp; 99.9% SLA &nbsp;·&nbsp; Eliminated 5+ redundant pipelines</div>
       </article>
 
       <article class="project-card">
         <div class="project-num" aria-hidden="true">03</div>
-        <h3 class="project-name">Data Platform CI/CD Modernization</h3>
+        <h3 class="project-name" data-en="Data Platform CI/CD Modernization" data-jp="データプラットフォームCI/CDの近代化">Data Platform CI/CD Modernization</h3>
         <div class="project-row">
-          <span class="project-label">Problem</span>
-          <p class="project-text">Pipeline deployments were manual, error-prone, and took days. No automated testing, no rollback, and every release required a war room of engineers watching logs.</p>
+          <span class="project-label" data-en="Problem" data-jp="課題">Problem</span>
+          <p class="project-text" data-en="Pipeline deployments were manual, error-prone, and took days. No automated testing, no rollback, and every release required a war room of engineers watching logs." data-jp="パイプラインのデプロイは手動で、エラーが多く、数日かかっていた。自動テストもロールバックもなく、リリースのたびに大勢のエンジニアがログを監視していた。">Pipeline deployments were manual, error-prone, and took days. No automated testing, no rollback, and every release required a war room of engineers watching logs.</p>
         </div>
         <div class="project-row">
-          <span class="project-label">Approach</span>
-          <p class="project-text">Built a full CI/CD system with GitHub Actions, Azure DevOps, and ARM templates. Automated unit + integration tests, environment promotion, and data-quality gates before every production merge.</p>
+          <span class="project-label" data-en="Approach" data-jp="アプローチ">Approach</span>
+          <p class="project-text" data-en="Built a full CI/CD system with GitHub Actions, Azure DevOps, and ARM templates. Automated unit + integration tests, environment promotion, and data-quality gates before every production merge." data-jp="GitHub Actions、Azure DevOps、ARMテンプレートで完全なCI/CDシステムを構築。ユニット・統合テスト、環境プロモーション、本番マージ前のデータ品質ゲートを自動化。">Built a full CI/CD system with GitHub Actions, Azure DevOps, and ARM templates. Automated unit + integration tests, environment promotion, and data-quality gates before every production merge.</p>
         </div>
         <div class="project-stack">
           <span class="stack-tag">GitHub Actions</span>
@@ -1307,7 +1397,7 @@ footer {
           <span class="stack-tag">ARM Templates</span>
           <span class="stack-tag">Great Expectations</span>
         </div>
-        <div class="project-result">🚀 Deploy time: days → 20 min &nbsp;·&nbsp; Zero manual rollbacks in 12 months</div>
+        <div class="project-result" data-en="🚀 Deploy time: days → 20 min · Zero manual rollbacks in 12 months" data-jp="🚀 デプロイ時間：数日→20分 · 12ヶ月間手動ロールバックゼロ">🚀 Deploy time: days → 20 min &nbsp;·&nbsp; Zero manual rollbacks in 12 months</div>
       </article>
     </div>
   </div>
@@ -1316,67 +1406,67 @@ footer {
 <!-- BEYOND -->
 <section id="beyond" class="beyond-bg" aria-labelledby="beyond-title">
   <div class="section-inner">
-    <p class="section-tag reveal">Life outside the terminal</p>
-    <h2 class="section-title reveal" id="beyond-title">Beyond the <em>code</em></h2>
-    <p class="section-sub reveal">The things I do off the clock shape how I think on it — strategy, instinct, focus, and the thrill of going fast.</p>
+    <p class="section-tag reveal" data-en="Life outside the terminal" data-jp="仕事以外の顔">Life outside the terminal</p>
+    <h2 class="section-title reveal" id="beyond-title" data-en="Beyond the code" data-jp="コードの向こう側">Beyond the <em>code</em></h2>
+    <p class="section-sub reveal" data-en="The things I do off the clock shape how I think on it — strategy, instinct, focus, and the thrill of going fast." data-jp="仕事以外でやることが、仕事の思考に影響を与えます。戦略、直感、集中力、スピードの醍醐味。">The things I do off the clock shape how I think on it — strategy, instinct, focus, and the thrill of going fast.</p>
 
     <div class="hobbies-grid reveal">
       <div class="hobby-card">
         <span class="hobby-emoji" aria-hidden="true">♟️</span>
-        <div class="hobby-name">Chess</div>
-        <div class="hobby-desc">I love the slow game — thinking five moves ahead and staying calm under pressure.</div>
-        <div class="hobby-trait">Strategic thinker</div>
+        <div class="hobby-name" data-en="Chess" data-jp="チェス">Chess</div>
+        <div class="hobby-desc" data-en="I love the slow game — thinking five moves ahead and staying calm under pressure." data-jp="先を読む戦略ゲーム。5手先を考え、プレッシャー下でも冷静を保つことが好きです。">I love the slow game — thinking five moves ahead and staying calm under pressure.</div>
+        <div class="hobby-trait" data-en="Strategic thinker" data-jp="戦略的思考">Strategic thinker</div>
       </div>
       <div class="hobby-card">
         <span class="hobby-emoji" aria-hidden="true">🏇</span>
-        <div class="hobby-name">Horse Riding</div>
-        <div class="hobby-desc">Working in harmony with a 500kg animal teaches patience, presence, and trust.</div>
-        <div class="hobby-trait">Patient &amp; present</div>
+        <div class="hobby-name" data-en="Horse Riding" data-jp="乗馬">Horse Riding</div>
+        <div class="hobby-desc" data-en="Working in harmony with a 500kg animal teaches patience, presence, and trust." data-jp="500kgの動物と呼吸を合わせることで、忍耐・集中・信頼を学べます。">Working in harmony with a 500kg animal teaches patience, presence, and trust.</div>
+        <div class="hobby-trait" data-en="Patient &amp; present" data-jp="忍耐と集中">Patient &amp; present</div>
       </div>
       <div class="hobby-card">
         <span class="hobby-emoji" aria-hidden="true">🏏</span>
-        <div class="hobby-name">Cricket</div>
-        <div class="hobby-desc">A team sport with individual brilliance. I appreciate the long game — patience rewarded.</div>
-        <div class="hobby-trait">Team player</div>
+        <div class="hobby-name" data-en="Cricket" data-jp="クリケット">Cricket</div>
+        <div class="hobby-desc" data-en="A team sport with individual brilliance. I appreciate the long game — patience rewarded." data-jp="個人の輝きを持つチームスポーツ。忍耐が報われる長期戦が好きです。">A team sport with individual brilliance. I appreciate the long game — patience rewarded.</div>
+        <div class="hobby-trait" data-en="Team player" data-jp="チームプレーヤー">Team player</div>
       </div>
       <div class="hobby-card">
         <span class="hobby-emoji" aria-hidden="true">🏎️</span>
-        <div class="hobby-name">Sim Racing</div>
-        <div class="hobby-desc">Precision, reaction time, and constant iteration. Every lap is a chance to improve.</div>
-        <div class="hobby-trait">Detail obsessed</div>
+        <div class="hobby-name" data-en="Sim Racing" data-jp="シムレーシング">Sim Racing</div>
+        <div class="hobby-desc" data-en="Precision, reaction time, and constant iteration. Every lap is a chance to improve." data-jp="精度、反応速度、継続的な改善。1周ごとが上達のチャンス。">Precision, reaction time, and constant iteration. Every lap is a chance to improve.</div>
+        <div class="hobby-trait" data-en="Detail obsessed" data-jp="細部へのこだわり">Detail obsessed</div>
       </div>
     </div>
 
     <div class="values-grid reveal" aria-label="Working values">
       <div class="value-item">
         <div class="value-num" aria-hidden="true">01</div>
-        <div class="value-name">Reliability first</div>
-        <div class="value-desc">Pipelines that fail silently are useless. I build with fault tolerance and observability baked in.</div>
+        <div class="value-name" data-en="Reliability first" data-jp="信頼性最優先">Reliability first</div>
+        <div class="value-desc" data-en="Pipelines that fail silently are useless. I build with fault tolerance and observability baked in." data-jp="サイレントに失敗するパイプラインは無意味。フォールトトレランスと可観測性を組み込んで設計します。">Pipelines that fail silently are useless. I build with fault tolerance and observability baked in.</div>
       </div>
       <div class="value-item">
         <div class="value-num" aria-hidden="true">02</div>
-        <div class="value-name">Clear communication</div>
-        <div class="value-desc">I translate data complexity into language that product, finance, and leadership can act on.</div>
+        <div class="value-name" data-en="Clear communication" data-jp="明確なコミュニケーション">Clear communication</div>
+        <div class="value-desc" data-en="I translate data complexity into language that product, finance, and leadership can act on." data-jp="データの複雑さを、プロダクト・財務・経営陣が行動できる言葉に変換します。">I translate data complexity into language that product, finance, and leadership can act on.</div>
       </div>
       <div class="value-item">
         <div class="value-num" aria-hidden="true">03</div>
-        <div class="value-name">Mentorship mindset</div>
-        <div class="value-desc">I genuinely enjoy helping junior engineers grow — good teams compound over time.</div>
+        <div class="value-name" data-en="Mentorship mindset" data-jp="メンタリング精神">Mentorship mindset</div>
+        <div class="value-desc" data-en="I genuinely enjoy helping junior engineers grow — good teams compound over time." data-jp="ジュニアエンジニアの成長を支援するのが本当に好きです。良いチームは時間とともに複利的に成長します。">I genuinely enjoy helping junior engineers grow — good teams compound over time.</div>
       </div>
       <div class="value-item">
         <div class="value-num" aria-hidden="true">04</div>
-        <div class="value-name">Long-term thinking</div>
-        <div class="value-desc">Like a chess game, I think ahead — designing systems that scale without pain later.</div>
+        <div class="value-name" data-en="Long-term thinking" data-jp="長期的な思考">Long-term thinking</div>
+        <div class="value-desc" data-en="Like a chess game, I think ahead — designing systems that scale without pain later." data-jp="チェスのように先を読みます。後で苦労しないようにスケールするシステムを設計します。">Like a chess game, I think ahead — designing systems that scale without pain later.</div>
       </div>
       <div class="value-item">
         <div class="value-num" aria-hidden="true">05</div>
-        <div class="value-name">Speed &amp; precision</div>
-        <div class="value-desc">Fast isn't just efficient — it changes what's possible. I optimize without sacrificing accuracy.</div>
+        <div class="value-name" data-en="Speed &amp; precision" data-jp="速度と精度">Speed &amp; precision</div>
+        <div class="value-desc" data-en="Fast isn't just efficient — it changes what's possible. I optimize without sacrificing accuracy." data-jp="速さは効率だけでなく、可能性を変えます。精度を犠牲にせず最適化します。">Fast isn't just efficient — it changes what's possible. I optimize without sacrificing accuracy.</div>
       </div>
       <div class="value-item">
         <div class="value-num" aria-hidden="true">06</div>
-        <div class="value-name">Ownership</div>
-        <div class="value-desc">I don't build and hand off. I stay invested in whether it actually works in production.</div>
+        <div class="value-name" data-en="Ownership" data-jp="オーナーシップ">Ownership</div>
+        <div class="value-desc" data-en="I don't build and hand off. I stay invested in whether it actually works in production." data-jp="作って終わりではありません。本番環境で実際に動いているかどうかまで責任を持ちます。">I don't build and hand off. I stay invested in whether it actually works in production.</div>
       </div>
     </div>
   </div>
@@ -1385,37 +1475,37 @@ footer {
 <!-- GOALS / NEXT -->
 <section id="next" class="goals-bg" aria-labelledby="goals-title">
   <div class="section-inner">
-    <p class="section-tag reveal">What's next</p>
-    <h2 class="section-title reveal" id="goals-title">Where I want to <em>go next</em></h2>
+    <p class="section-tag reveal" data-en="What's next" data-jp="次のステップ">What's next</p>
+    <h2 class="section-title reveal" id="goals-title" data-en="Where I want to go next" data-jp="次に目指すもの">Where I want to <em>go next</em></h2>
 
     <div class="goals-grid reveal">
       <div class="goal-card">
         <span class="goal-icon" aria-hidden="true">🧠</span>
-        <div class="goal-title">AI-Native Infrastructure</div>
-        <div class="goal-desc">Feature stores, vector DBs, training data pipelines — the backbone behind real AI products.</div>
+        <div class="goal-title" data-en="AI-Native Infrastructure" data-jp="AIネイティブインフラ">AI-Native Infrastructure</div>
+        <div class="goal-desc" data-en="Feature stores, vector DBs, training data pipelines — the backbone behind real AI products." data-jp="フィーチャーストア、ベクターDB、学習データパイプライン。真のAIプロダクトを支える基盤。">Feature stores, vector DBs, training data pipelines — the backbone behind real AI products.</div>
       </div>
       <div class="goal-card">
         <span class="goal-icon" aria-hidden="true">⚡</span>
-        <div class="goal-title">Fast-Paced Startup</div>
-        <div class="goal-desc">Where pipelines connect directly to the product. Real ownership, no bureaucracy.</div>
+        <div class="goal-title" data-en="Fast-Paced Startup" data-jp="スタートアップ">Fast-Paced Startup</div>
+        <div class="goal-desc" data-en="Where pipelines connect directly to the product. Real ownership, no bureaucracy." data-jp="パイプラインがプロダクトに直結する環境。真のオーナーシップ、官僚主義なし。">Where pipelines connect directly to the product. Real ownership, no bureaucracy.</div>
       </div>
       <div class="goal-card">
         <span class="goal-icon" aria-hidden="true">🌐</span>
-        <div class="goal-title">Next-Gen AI Tooling</div>
-        <div class="goal-desc">Contributing to AI products — not just infrastructure, but the bigger picture too.</div>
+        <div class="goal-title" data-en="Next-Gen AI Tooling" data-jp="次世代AIツール">Next-Gen AI Tooling</div>
+        <div class="goal-desc" data-en="Contributing to AI products — not just infrastructure, but the bigger picture too." data-jp="AIプロダクトへの貢献。インフラだけでなく、より大きなビジョンにも。">Contributing to AI products — not just infrastructure, but the bigger picture too.</div>
       </div>
       <div class="goal-card">
         <span class="goal-icon" aria-hidden="true">🤝</span>
-        <div class="goal-title">Senior IC or Lead</div>
-        <div class="goal-desc">Deep technical work or a small sharp team. Either way, real influence over how data is built.</div>
+        <div class="goal-title" data-en="Senior IC or Lead" data-jp="シニアICまたはリード">Senior IC or Lead</div>
+        <div class="goal-desc" data-en="Deep technical work or a small sharp team. Either way, real influence over how data is built." data-jp="深い技術的な仕事か、優秀な少数精鋭チームのリード。どちらでも、データ基盤の設計に真の影響を持ちたい。">Deep technical work or a small sharp team. Either way, real influence over how data is built.</div>
       </div>
     </div>
 
     <div class="goals-tags reveal" style="margin-top:1.6rem">
-      <span class="goals-tag">AI / ML Infrastructure</span>
-      <span class="goals-tag">Fast-paced startup</span>
-      <span class="goals-tag">Senior IC or Lead</span>
-      <span class="goals-tag">Open to remote</span>
+      <span class="goals-tag" data-en="AI / ML Infrastructure" data-jp="AI / MLインフラ">AI / ML Infrastructure</span>
+      <span class="goals-tag" data-en="Fast-paced startup" data-jp="スタートアップ">Fast-paced startup</span>
+      <span class="goals-tag" data-en="Senior IC or Lead" data-jp="シニアICまたはリード">Senior IC or Lead</span>
+      <span class="goals-tag" data-en="Open to remote" data-jp="リモート可">Open to remote</span>
     </div>
   </div>
 </section>
@@ -1423,9 +1513,9 @@ footer {
 <!-- CONTACT -->
 <section id="contact" class="contact-bg" aria-labelledby="contact-title">
   <div class="section-inner">
-    <p class="section-tag reveal">Let's talk</p>
-    <h2 class="section-title reveal" id="contact-title">Open to the right <em>opportunity</em></h2>
-    <p class="section-sub reveal">Whether it's a senior IC role, a lead position, or just a good conversation about data &amp; AI infrastructure — I'd love to hear from you.</p>
+    <p class="section-tag reveal" data-en="Let's talk" data-jp="お問い合わせ">Let's talk</p>
+    <h2 class="section-title reveal" id="contact-title" data-en="Open to the right opportunity" data-jp="最適な機会を求めて">Open to the right <em>opportunity</em></h2>
+    <p class="section-sub reveal" data-en="Whether it's a senior IC role, a lead position, or just a good conversation about data &amp; AI infrastructure — I'd love to hear from you." data-jp="シニアICポジション、リード職、またはデータ・AIインフラについての会話でも — ぜひご連絡ください。">Whether it's a senior IC role, a lead position, or just a good conversation about data &amp; AI infrastructure — I'd love to hear from you.</p>
 
     <div class="contact-links reveal">
       <!-- Email: copy button is standalone, NOT nested inside an anchor -->
@@ -1435,7 +1525,7 @@ footer {
         aria-label="Copy email address psurya.924@gmail.com to clipboard">
         <span class="c-icon" aria-hidden="true">✉️</span>
         <span>psurya.924@gmail.com</span>
-        <span class="copy-suffix">(copy)</span>
+        <span class="copy-suffix" data-en="(copy)" data-jp="（コピー）">(copy)</span>
       </button>
 
       <a
@@ -1458,11 +1548,13 @@ footer {
 
       <button
         class="copy-email-btn"
-        onclick="downloadResume()"
-        aria-label="Download resume PDF">
+        onclick="currentLang === 'jp' ? downloadResumeJP() : downloadResume()"
+        aria-label="Download one-page resume PDF">
         <span class="c-icon" aria-hidden="true">📄</span>
-        Download Resume
+        <span data-en="Download Resume" data-jp="履歴書ダウンロード">Download Resume</span>
       </button>
+
+
     </div>
   </div>
 </section>
@@ -1471,12 +1563,18 @@ footer {
 
 <!-- FOOTER -->
 <footer>
-  <span class="footer-text">Surya Partap Singh &middot; Senior Data Engineer</span>
+  <span class="footer-text" data-en="Surya Partap Singh · Senior Data Engineer" data-jp="スーリャ・パルタップ・シン · シニアデータエンジニア">Surya Partap Singh &middot; Senior Data Engineer</span>
   <div class="footer-dot" aria-hidden="true"></div>
-  <span class="footer-text">Dallas, TX &middot; 2026</span>
+  <span class="footer-text" data-en="Dallas, TX · 2026" data-jp="米国テキサス州ダラス · 2026">Dallas, TX &middot; 2026</span>
 </footer>
 
 <script>
+/* ============================================================
+   LANGUAGE — declare first so applyDark can reference it
+   ============================================================ */
+var currentLang = 'en';
+(function() { try { var s = localStorage.getItem('lang'); if (s) currentLang = s; } catch(e) {} })();
+
 /* ============================================================
    THEME
    ============================================================ */
@@ -1494,7 +1592,8 @@ function applyDark(on, silent) {
   var label = document.getElementById('themeLabel');
   var icon = document.getElementById('themeIcon');
   if (btn) btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-  if (label) label.textContent = on ? 'Light' : 'Dark';
+  var isJP = currentLang === 'jp';
+  if (label) label.textContent = on ? (isJP ? 'ライト' : 'Light') : (isJP ? 'ダーク' : 'Dark');
   if (icon) icon.textContent = on ? '☀️' : '🌙';
   if (!silent) try { localStorage.setItem('theme', on ? 'dark' : 'light'); } catch(e) {}
 }
@@ -1503,6 +1602,94 @@ function toggleTheme() {
   var isDark = document.documentElement.classList.contains('dark');
   applyDark(!isDark);
 }
+
+/* ============================================================
+   LANGUAGE TOGGLE
+   ============================================================ */
+
+/* Titles that contain <em> — swap innerHTML, not textContent */
+var RICH_TITLES = {
+  'skills-title':     { en: 'Tools of the <em>trade</em>',           jp: '技術<em>スタック</em>' },
+  'experience-title': { en: 'A track record of <em>impact</em>',      jp: '実績の<em>軌跡</em>' },
+  'projects-title':   { en: 'Work that <em>moved the needle</em>',    jp: '成果を出した<em>仕事</em>' },
+  'beyond-title':     { en: 'Beyond the <em>code</em>',               jp: 'コードの<em>向こう側</em>' },
+  'goals-title':      { en: 'Where I want to <em>go next</em>',       jp: '次に<em>目指すもの</em>' },
+  'contact-title':    { en: 'Open to the right <em>opportunity</em>', jp: '最適な<em>機会</em>を求めて' }
+};
+
+function setLang(lang) {
+  currentLang = lang;
+  try { localStorage.setItem('lang', lang); } catch(e) {}
+
+  /* Fade out → swap → fade in */
+  document.documentElement.classList.add('lang-switching');
+  setTimeout(function() {
+    _applyLang(lang);
+    document.documentElement.classList.remove('lang-switching');
+  }, 120);
+}
+
+function _applyLang(lang) {
+
+  var isJP = lang === 'jp';
+
+  /* 1. html element — lang attr + jp-mode font class */
+  document.documentElement.setAttribute('lang', isJP ? 'ja' : 'en');
+  document.documentElement.classList.toggle('jp-mode', isJP);
+
+  /* 2. page title */
+  document.title = isJP
+    ? 'スーリャ・パルタップ・シン | シニアデータエンジニア'
+    : 'Surya Partap Singh | Senior Data Engineer';
+
+  /* 3. all [data-en] elements */
+  document.querySelectorAll('[data-en]').forEach(function(el) {
+    var val = isJP ? (el.getAttribute('data-jp') || el.getAttribute('data-en')) : el.getAttribute('data-en');
+    if (!val) return;
+    /* Use innerHTML only for elements that may contain markup */
+    var tag = el.tagName;
+    if (tag === 'P' || tag === 'H1' || tag === 'H2' || tag === 'H3' || tag === 'H4') {
+      el.innerHTML = val;
+    } else {
+      el.textContent = val;
+    }
+  });
+
+  /* 4. rich section titles (contain <em>) */
+  Object.keys(RICH_TITLES).forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = RICH_TITLES[id][isJP ? 'jp' : 'en'];
+  });
+
+  /* 5. hero h1 */
+  var heroName = document.querySelector('.hero-name');
+  if (heroName) {
+    heroName.innerHTML = isJP
+      ? 'データを<br>データへ変える <em>明確さ。</em><span style="display:block;font-size:.38em;font-style:normal;letter-spacing:.06em;margin-top:.5em;opacity:.65;font-family:\'Noto Sans JP\',sans-serif">スーリャ・パルタップ・シン</span>'
+      : 'I turn messy<br>data into <em>clarity.</em>';
+  }
+
+  /* 6. theme label */
+  var themeLabel = document.getElementById('themeLabel');
+  if (themeLabel) {
+    var isDark = document.documentElement.classList.contains('dark');
+    themeLabel.textContent = isJP ? (isDark ? 'ライト' : 'ダーク') : (isDark ? 'Light' : 'Dark');
+  }
+
+  /* 7. toggle button active states */
+  ['langEN','langJP','langENm','langJPm'].forEach(function(id) {
+    var btn = document.getElementById(id);
+    if (!btn) return;
+    var isEN = id.indexOf('EN') !== -1;
+    btn.classList.toggle('active', isEN ? !isJP : isJP);
+    if ('ariaPressed' in btn) btn.setAttribute('aria-pressed', (isEN ? !isJP : isJP).toString());
+  });
+}
+
+/* Apply saved preference on load */
+document.addEventListener('DOMContentLoaded', function() {
+  if (currentLang === 'jp') setLang('jp');
+});
 
 /* ============================================================
    MOBILE NAV
@@ -1526,11 +1713,6 @@ function closeMobileNav() {
   nav.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
 }
-
-// Close mobile nav on Escape
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeMobileNav();
-});
 
 /* ============================================================
    SCROLL PROGRESS
@@ -1581,12 +1763,9 @@ function showToast() {
 }
 
 /* ============================================================
-   RESUME DOWNLOAD
-   Uses blob + iframe — no popup-blocker issues
-   Falls back to window.open if iframe fails
+   RESUME DOWNLOAD — strict one-page A4/Letter layout
    ============================================================ */
-function downloadResume() {
-  var html = buildResumeHTML();
+function printHTML(html) {
   try {
     var blob = new Blob([html], { type: 'text/html' });
     var url = URL.createObjectURL(blob);
@@ -1595,83 +1774,176 @@ function downloadResume() {
     document.body.appendChild(iframe);
     iframe.src = url;
     iframe.onload = function() {
-      try {
-        iframe.contentWindow.focus();
-        iframe.contentWindow.print();
-      } catch(err) {
-        window.open(url, '_blank');
-      }
+      try { iframe.contentWindow.focus(); iframe.contentWindow.print(); }
+      catch(e) { window.open(url, '_blank'); }
       setTimeout(function() {
         document.body.removeChild(iframe);
         URL.revokeObjectURL(url);
-      }, 4000);
+      }, 5000);
     };
-  } catch(err) {
+  } catch(e) {
     window.open('data:text/html,' + encodeURIComponent(html));
   }
 }
 
-function buildResumeHTML() {
+function downloadResume() { printHTML(buildResumeEN()); }
+function downloadResumeJP() { printHTML(buildResumeJP()); }
+
+/* ---- SHARED RESUME CSS (one-page enforced) ---- */
+var RESUME_BASE_CSS = [
+  '*{box-sizing:border-box;margin:0;padding:0}',
+  'html,body{width:100%;height:100%}',
+  /* Force single page: fixed viewport = letter page at 96dpi */
+  'body{font-family:"DM Sans",sans-serif;font-weight:300;color:#1A1917;',
+  '  background:#fff;padding:0;margin:0;}',
+  '.page{',
+  '  width:8.5in;min-height:11in;max-height:11in;',
+  '  padding:.52in .6in .45in .6in;',
+  '  box-sizing:border-box;overflow:hidden;',
+  '  display:flex;flex-direction:column;',
+  '}',
+  /* Screen preview */
+  '@media screen{body{background:#e5e5e5;display:flex;justify-content:center;padding:2rem 1rem}',
+  '.page{box-shadow:0 4px 40px rgba(0,0,0,.18);background:#fff}}',
+  /* Print — letter, single page, no orphans */
+  '@media print{',
+  '  @page{size:letter;margin:0}',
+  '  body{background:#fff;padding:0;margin:0}',
+  '  .page{width:100%;min-height:0;max-height:none;padding:.45in .5in .4in .5in;overflow:visible}',
+  '  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}',
+  '}',
+  '.hdr{display:flex;justify-content:space-between;align-items:flex-end;',
+  '  border-bottom:2px solid #1A1917;padding-bottom:.28in;margin-bottom:.22in}',
+  '.name{font-family:"Lora",serif;font-size:1.9rem;line-height:1.05;letter-spacing:-.02em}',
+  '.name em{font-style:italic;color:#B85C38}',
+  '.role{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:#7A766F;margin-top:.22rem}',
+  '.ci{text-align:right;font-size:.72rem;color:#3D3A36;line-height:1.75}',
+  '.sec{margin-bottom:.18in}',
+  '.sl{font-size:.52rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;',
+  '  color:#B85C38;margin-bottom:.12rem;border-bottom:1px solid #D4CEC4;padding-bottom:.1rem}',
+  '.sum{font-size:.75rem;color:#3D3A36;line-height:1.65}',
+  '.job{margin-bottom:.13in}',
+  '.jh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.06rem;flex-wrap:wrap;gap:.2rem}',
+  '.co{font-family:"Lora",serif;font-size:.88rem;color:#1A1917}',
+  '.dt{font-size:.62rem;color:#7A766F;letter-spacing:.06em;white-space:nowrap}',
+  '.jr{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:#B85C38;margin-bottom:.18rem}',
+  'ul{padding-left:.85rem;margin-top:.1rem}',
+  'li{font-size:.73rem;color:#3D3A36;margin-bottom:.1rem;line-height:1.45}',
+  'li strong{font-weight:600;color:#1A1917}',
+  '.m{color:#B85C38;font-weight:500}',
+  '.pills{display:flex;flex-wrap:wrap;gap:.22rem;margin-top:.16rem}',
+  '.pill{font-size:.63rem;color:#3D3A36;background:#F2EBE0;border:1px solid #D4CEC4;',
+  '  padding:.12em .5em;border-radius:12px}',
+  '.er{display:flex;justify-content:space-between;align-items:center;font-size:.74rem}',
+].join('');
+
+/* ---- ENGLISH ONE-PAGE RESUME ---- */
+function buildResumeEN() {
+  var skills = ['Python','PySpark','Spark SQL','Apache Spark','Databricks','Azure Data Factory',
+    'Delta Lake','Azure Data Lake','Medallion Lakehouse','ETL/ELT','CI/CD','GitHub Actions',
+    'Great Expectations','Git','Azure DevOps','Hadoop','Hive','Airflow','Azure SQL','S3'];
   return '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">'
     + '<title>Surya Partap Singh — Resume</title>'
     + '<link rel="preconnect" href="https://fonts.googleapis.com">'
     + '<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">'
-    + '<style>'
-    + '*{box-sizing:border-box;margin:0;padding:0}'
-    + 'body{font-family:"DM Sans",sans-serif;font-weight:300;color:#1A1917;line-height:1.6;padding:2.5rem;max-width:800px;margin:0 auto}'
-    + '@media print{body{padding:1.5rem;font-size:10.5pt}}'
-    + '.hdr{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #1A1917;padding-bottom:1.4rem;margin-bottom:1.8rem}'
-    + '.name{font-family:"Lora",serif;font-size:2.4rem;line-height:1.05;letter-spacing:-.02em}'
-    + '.name em{font-style:italic;color:#B85C38}'
-    + '.role{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:#7A766F;margin-top:.35rem}'
-    + '.contact-info{text-align:right;font-size:.8rem;color:#3D3A36;line-height:1.9}'
-    + '.sec{margin-bottom:1.6rem}'
-    + '.sec-label{font-size:.58rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#B85C38;margin-bottom:.45rem;border-bottom:1px solid #D4CEC4;padding-bottom:.28rem}'
-    + '.summary{font-size:.85rem;color:#3D3A36;line-height:1.7}'
-    + '.job{margin-bottom:1.1rem}'
-    + '.job-hdr{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.18rem}'
-    + '.co{font-family:"Lora",serif;font-size:1rem}'
-    + '.date{font-size:.7rem;color:#7A766F;letter-spacing:.08em}'
-    + '.jobrole{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#B85C38;margin-bottom:.45rem}'
-    + 'ul{padding-left:1rem;margin-top:.28rem}'
-    + 'li{font-size:.8rem;color:#3D3A36;margin-bottom:.18rem;line-height:1.5}'
-    + 'li strong{font-weight:500;color:#1A1917}'
-    + '.metric{color:#B85C38;font-style:italic}'
-    + '.pills{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.35rem}'
-    + '.pill{font-size:.7rem;color:#3D3A36;background:#F2EBE0;border:1px solid #D4CEC4;padding:.18em .6em;border-radius:16px}'
-    + '.edu-row{display:flex;justify-content:space-between;align-items:center}'
-    + '</style></head><body>'
-    + '<div class="hdr"><div><div class="name">Surya Partap <em>Singh</em></div><div class="role">Senior Data Engineer</div></div>'
-    + '<div class="contact-info"><div>psurya.924@gmail.com</div><div>linkedin.com/in/surya6032</div><div>github.com/surya6032</div><div>Dallas, TX</div></div></div>'
-    + '<div class="sec"><div class="sec-label">Profile</div>'
-    + '<div class="summary">Senior Data Engineer with 5+ years designing scalable, fault-tolerant data pipelines and Medallion Lakehouses. Expert in Python, PySpark, Spark SQL, Databricks, and Azure. Proven track record leading teams of 3–5 engineers and delivering multi-million dollar data infrastructure projects. Reduced pipeline latency by ~70%, maintained 99.9% SLA, and enabled near-real-time financial reporting at scale.</div></div>'
-    + '<div class="sec"><div class="sec-label">Experience</div>'
-    + '<div class="job"><div class="job-hdr"><span class="co">Cencora</span><span class="date">Feb 2023 – Present · Dallas, TX</span></div>'
-    + '<div class="jobrole">Senior Data Engineer</div><ul>'
-    + '<li><strong>Medallion Lakehouse:</strong> Architected Bronze→Silver→Gold on Databricks + Delta Lake, serving <span class="metric">12+ downstream teams</span> with clinical, financial, and pharmacy data.</li>'
-    + '<li>Reduced pipeline latency by <span class="metric">~70%</span> through Spark optimization, AQE, smart partitioning — enabling near-real-time financial reporting.</li>'
-    + '<li><strong>Team Leadership:</strong> Led 3–5 engineers; mentored 2 juniors to mid-level. Defined ETL standards and data governance.</li>'
-    + '<li>CI/CD via GitHub Actions + Azure DevOps; Great Expectations data quality with <span class="metric">99.9% SLA</span>.</li>'
-    + '<li>Delivered multi-million dollar projects compressing data latency from hours to minutes.</li>'
-    + '</ul></div>'
-    + '<div class="job"><div class="job-hdr"><span class="co">Cencora (Contract → FTE)</span><span class="date">May 2021 – Feb 2023 · Dallas, TX</span></div>'
-    + '<div class="jobrole">Data Engineer</div><ul>'
-    + '<li>Built scalable ingestion pipelines (Databricks, ADF, PySpark) processing <span class="metric">multi-TB/day</span> with zero data-loss SLAs.</li>'
-    + '<li>Created canonical source-of-truth tables serving 8+ business units for analytics and reporting.</li>'
-    + '<li>Automated production workflows with retry logic and monitoring via Databricks Jobs.</li>'
-    + '</ul></div>'
-    + '<div class="job"><div class="job-hdr"><span class="co">Fuge Technologies Inc</span><span class="date">Feb 2021 – May 2021 · DFW, TX</span></div>'
-    + '<div class="jobrole">Data Engineer</div><ul>'
-    + '<li>Built Hadoop/Hive batch pipelines and optimized queries for large-scale datasets.</li>'
-    + '<li>Established Azure Data Lake ingestion workflows via Azure Data Factory.</li>'
-    + '</ul></div></div>'
-    + '<div class="sec"><div class="sec-label">Skills</div><div class="pills">'
-    + ['Python','PySpark','Spark SQL','Apache Spark','Hadoop','Hive','Flink','Databricks','Azure Data Factory','Airflow','Delta Lake','Azure Data Lake','Azure SQL','S3','Medallion Lakehouse','ETL/ELT','CI/CD','GitHub Actions','Great Expectations','Git','Azure DevOps'].map(function(s){ return '<span class="pill">'+s+'</span>'; }).join('')
+    + '<style>' + RESUME_BASE_CSS + '</style></head><body><div class="page">'
+    /* HEADER */
+    + '<div class="hdr"><div>'
+    + '<div class="name">Surya Partap <em>Singh</em></div>'
+    + '<div class="role">Senior Data Engineer</div>'
+    + '</div><div class="ci">'
+    + '<div>psurya.924@gmail.com</div><div>linkedin.com/in/surya6032</div>'
+    + '<div>github.com/surya6032</div><div>Dallas, TX</div>'
     + '</div></div>'
-    + '<div class="sec"><div class="sec-label">Education</div>'
-    + '<div class="edu-row"><span style="font-family:\'Lora\',serif;font-size:.95rem">B.S. in Computer Science — University of North Alabama</span><span style="font-size:.75rem;color:#7A766F">2018–2020</span></div></div>'
-    + '</body></html>';
+    /* PROFILE */
+    + '<div class="sec"><div class="sl">Profile</div>'
+    + '<div class="sum">Senior Data Engineer with 5+ years designing scalable Medallion Lakehouses and fault-tolerant pipelines. Expert in Python, PySpark, Databricks, and Azure. Led teams of 3–5 engineers delivering multi-million dollar projects — reducing pipeline latency ~70% and maintaining 99.9% SLA at scale.</div></div>'
+    /* EXPERIENCE */
+    + '<div class="sec"><div class="sl">Experience</div>'
+    + '<div class="job"><div class="jh"><span class="co">Cencora</span><span class="dt">Feb 2023 – Present · Dallas, TX</span></div>'
+    + '<div class="jr">Senior Data Engineer</div><ul>'
+    + '<li><strong>Medallion Lakehouse:</strong> Architected Bronze→Silver→Gold on Databricks + Delta Lake, serving <span class="m">12+ downstream teams</span> across clinical, financial &amp; pharmacy domains.</li>'
+    + '<li>Reduced pipeline latency <span class="m">~70%</span> via Spark AQE, smart partitioning &amp; caching — enabling near-real-time financial reporting.</li>'
+    + '<li><strong>Team Lead:</strong> Led 3–5 engineers; mentored 2 juniors to mid-level; defined ETL standards &amp; data governance.</li>'
+    + '<li>CI/CD via GitHub Actions + Azure DevOps; data quality with Great Expectations at <span class="m">99.9% SLA</span>.</li>'
+    + '</ul></div>'
+    + '<div class="job"><div class="jh"><span class="co">Cencora (Contract → FTE)</span><span class="dt">May 2021 – Feb 2023 · Dallas, TX</span></div>'
+    + '<div class="jr">Data Engineer</div><ul>'
+    + '<li>Built ingestion pipelines (Databricks, ADF, PySpark) processing <span class="m">multi-TB/day</span> with zero data-loss SLAs.</li>'
+    + '<li>Created canonical source-of-truth tables serving 8+ business units for analytics &amp; operational reporting.</li>'
+    + '<li>Automated production workflows with retry logic, alerting &amp; monitoring via Databricks Jobs.</li>'
+    + '</ul></div>'
+    + '<div class="job"><div class="jh"><span class="co">Fuge Technologies Inc</span><span class="dt">Feb 2021 – May 2021 · DFW, TX</span></div>'
+    + '<div class="jr">Data Engineer</div><ul>'
+    + '<li>Built Hadoop/Hive batch pipelines; established Azure Data Lake ingestion via Azure Data Factory.</li>'
+    + '</ul></div></div>'
+    /* SKILLS */
+    + '<div class="sec"><div class="sl">Skills</div><div class="pills">'
+    + skills.map(function(s){ return '<span class="pill">'+s+'</span>'; }).join('')
+    + '</div></div>'
+    /* EDUCATION */
+    + '<div class="sec"><div class="sl">Education</div>'
+    + '<div class="er"><span style="font-family:\'Lora\',serif">B.S. Computer Science — University of North Alabama</span><span style="color:#7A766F">2018–2020</span></div></div>'
+    + '</div></body></html>';
 }
+
+/* ---- JAPANESE ONE-PAGE RESUME ---- */
+function buildResumeJP() {
+  var jpCss = RESUME_BASE_CSS
+    + 'body,ul,li{font-family:"Hiragino Sans","Yu Gothic","Meiryo","DM Sans",sans-serif}'
+    + '.name{font-size:1.6rem}.jkana{font-size:.65rem;color:#7A766F;margin-top:.15rem;letter-spacing:.04em}';
+  var skills = ['Python','PySpark','Spark SQL','Apache Spark','Databricks','Azure Data Factory',
+    'Delta Lake','Azure Data Lake','Medallion Lakehouse','ETL/ELT','CI/CD','GitHub Actions',
+    'Great Expectations','Git','Azure DevOps','Hadoop','Hive','Airflow','Azure SQL','S3'];
+  return '<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8">'
+    + '<title>スーリャ・パルタップ・シン — 履歴書</title>'
+    + '<link rel="preconnect" href="https://fonts.googleapis.com">'
+    + '<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">'
+    + '<style>' + jpCss + '</style></head><body><div class="page">'
+    + '<div class="hdr"><div>'
+    + '<div class="name">Surya Partap <em>Singh</em></div>'
+    + '<div class="jkana">スーリャ・パルタップ・シン</div>'
+    + '<div class="role">シニアデータエンジニア</div>'
+    + '</div><div class="ci">'
+    + '<div>psurya.924@gmail.com</div><div>linkedin.com/in/surya6032</div>'
+    + '<div>github.com/surya6032</div><div>米国テキサス州ダラス在住</div>'
+    + '</div></div>'
+    /* プロフィール */
+    + '<div class="sec"><div class="sl">プロフィール</div>'
+    + '<div class="sum">5年以上の経験を持つシニアデータエンジニア。スケーラブルなメダリオンレイクハウスと耐障害性パイプラインの設計を専門とする。Python・PySpark・Databricks・Azureに精通し、3〜5名のエンジニアチームをリードして数百万ドル規模のプロジェクトを推進。パイプライン遅延を約70%削減し、99.9%のSLAを維持した実績を持つ。</div></div>'
+    /* 職歴 */
+    + '<div class="sec"><div class="sl">職歴</div>'
+    + '<div class="job"><div class="jh"><span class="co">Cencora</span><span class="dt">2023年2月〜現在 · テキサス州ダラス</span></div>'
+    + '<div class="jr">シニアデータエンジニア</div><ul>'
+    + '<li><strong>メダリオンレイクハウス設計：</strong>Databricks + Delta Lake上にブロンズ→シルバー→ゴールド構造を構築。臨床・財務・薬局データを統合し、<span class="m">12以上の下流チーム</span>へ提供。</li>'
+    + '<li>Spark AQE・スマートパーティショニング・キャッシュ戦略により、パイプライン遅延を<span class="m">約70%削減</span>。財務レポートのリアルタイム化を実現。</li>'
+    + '<li><strong>チームリード：</strong>3〜5名のエンジニアを統括。ジュニア2名のミッドレベル昇格を支援し、ETL設計基準とデータガバナンスを確立。</li>'
+    + '<li>GitHub Actions + Azure DevOpsでCI/CDを構築。Great Expectationsによるデータ品質管理で<span class="m">SLA 99.9%</span>を維持。</li>'
+    + '</ul></div>'
+    + '<div class="job"><div class="jh"><span class="co">Cencora（契約→正社員）</span><span class="dt">2021年5月〜2023年2月 · テキサス州ダラス</span></div>'
+    + '<div class="jr">データエンジニア</div><ul>'
+    + '<li>Databricks・ADF・PySparkを用いたインジェストパイプラインを構築。<span class="m">日次マルチTB</span>規模のデータをゼロロスSLAで処理。</li>'
+    + '<li>8以上の事業部門が利用する正規化シングルソーステーブルを設計・実装。</li>'
+    + '<li>リトライロジック・監視機能付きの本番ワークフローをDatabricks Jobsで自動化。</li>'
+    + '</ul></div>'
+    + '<div class="job"><div class="jh"><span class="co">Fuge Technologies Inc</span><span class="dt">2021年2月〜2021年5月 · テキサス州DFW</span></div>'
+    + '<div class="jr">データエンジニア</div><ul>'
+    + '<li>Hadoop/Hiveバッチパイプラインを構築。Azure Data FactoryでAzure Data Lakeへのインジェストワークフローを確立。</li>'
+    + '</ul></div></div>'
+    /* スキル */
+    + '<div class="sec"><div class="sl">スキル</div><div class="pills">'
+    + skills.map(function(s){ return '<span class="pill">'+s+'</span>'; }).join('')
+    + '</div></div>'
+    /* 学歴 */
+    + '<div class="sec"><div class="sl">学歴</div>'
+    + '<div class="er"><span style="font-family:\'Lora\',serif">コンピュータサイエンス学士 — ノースアラバマ大学</span><span style="color:#7A766F">2018–2020</span></div></div>'
+    + '</div></body></html>';
+}
+
+/* Keyboard: Escape closes mobile nav */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeMobileNav();
+});
 </script>
 </body>
 </html>
