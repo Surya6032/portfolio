@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surya Partap Singh — Data Engineer</title>
+<meta name="description" content="Senior Data Engineer · Dallas TX · Databricks · PySpark · Azure · 5yr">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* RESET */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;font-weight:300;line-height:1.6;min-height:100vh;}
+img{display:block;max-width:100%;}
+a{color:var(--accent);text-underline-offset:3px;}
+a:hover{opacity:.8;}
+strong{color:var(--hi);font-weight:500;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-thumb{background:var(--border2);}
+
+/* DARK THEME */
+[data-theme="dark"]{
+  --bg:#0f0f0f;
+  --bg-card:#161616;
+  --bg-code:#1a1a1a;
+  --border:#252525;
+  --border2:#2e2e2e;
+  --dim:#505050;
+  --mid:#818181;
+  --txt:#c4c4c4;
+  --hi:#efefef;
+  --accent:#5eead4;
+  --accent2:#2dd4bf;
+}
+
+/* LIGHT THEME */
+[data-theme="light"]{
+  --bg:#f8f8f5;
+  --bg-card:#f0f0ed;
+  --bg-code:#e8e8e5;
+  --border:#d8d8d4;
+  --border2:#c8c8c4;
+  --dim:#aaaaaa;
+  --mid:#666666;
+  --txt:#383838;
+  --hi:#111111;
+  --accent:#0d766e;
+  --accent2:#0a5e57;
+}
+
+/* APPLY THEME VARS */
+body{background:var(--bg);color:var(--txt);}
+::selection{background:var(--accent);color:var(--bg);}
+
+/* SKIP */
+.skip{position:absolute;top:-80px;left:16px;background:var(--accent);color:var(--bg);padding:8px 16px;font-size:.8rem;font-family:'IBM Plex Mono',monospace;border-radius:3px;z-index:9999;transition:top .2s;}
+.skip:focus{top:12px;}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;height:48px;background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;}
+.nav-brand{font-family:'IBM Plex Mono',monospace;font-size:.8rem;font-weight:600;color:var(--hi);text-decoration:none;}
+.nav-brand span{color:var(--accent);}
+.nav-links{display:flex;align-items:center;gap:4px;}
+.nav-links a{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--mid);text-decoration:none;padding:5px 10px;border-radius:3px;transition:color .15s;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.theme-btn{background:none;border:1px solid var(--border2);border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--mid);padding:5px 10px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:border-color .15s,color .15s;}
+.theme-btn:hover{border-color:var(--accent);color:var(--accent);}
+.hamburger{display:none;background:none;border:1px solid var(--border2);border-radius:3px;padding:6px 9px;cursor:pointer;flex-direction:column;gap:4px;}
+.hamburger span{display:block;width:18px;height:1.5px;background:var(--mid);border-radius:1px;transition:all .25s;}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px);}
+.mobile-menu{display:none;position:fixed;top:48px;left:0;right:0;bottom:0;z-index:190;background:var(--bg);border-top:1px solid var(--border);flex-direction:column;overflow-y:auto;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-family:'IBM Plex Mono',monospace;font-size:1rem;color:var(--txt);text-decoration:none;padding:18px 24px;border-bottom:1px solid var(--border);transition:color .15s;}
+.mobile-menu a:hover{color:var(--accent);}
+
+/* LAYOUT */
+.page{padding-top:48px;}
+.container{max-width:900px;margin:0 auto;padding:0 20px;}
+.section{border-bottom:1px solid var(--border);}
+.section-header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--border);max-width:900px;margin:0 auto;}
+.section-title{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;color:var(--hi);letter-spacing:.06em;display:flex;align-items:center;gap:10px;}
+.section-title .idx{color:var(--dim);font-weight:400;}
+.section-meta{font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--dim);}
+
+/* HERO */
+#hero{min-height:calc(100vh - 48px);display:flex;align-items:center;}
+.hero-inner{padding:48px 20px;max-width:900px;margin:0 auto;width:100%;}
+.status-pill{display:inline-flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--accent);border:1px solid var(--border);border-radius:99px;padding:4px 12px;margin-bottom:20px;}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1}60%{opacity:.25}}
+.hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.hero-eyebrow::before{content:'>';font-weight:600;}
+.hero-h1{font-family:'IBM Plex Mono',monospace;font-size:clamp(1.9rem,4.5vw,2.8rem);font-weight:600;color:var(--hi);line-height:1.1;letter-spacing:-.02em;margin-bottom:8px;}
+.hero-h1 .acc{color:var(--accent);}
+.hero-sub-line{font-family:'IBM Plex Mono',monospace;font-size:.82rem;color:var(--mid);margin-bottom:28px;}
+.hero-desc{font-size:.98rem;color:var(--txt);line-height:1.82;max-width:560px;margin-bottom:32px;border-left:2px solid var(--border2);padding-left:16px;}
+.hero-stats{display:flex;gap:0;margin-bottom:32px;border:1px solid var(--border);border-radius:4px;overflow:hidden;width:fit-content;}
+.hstat{padding:14px 20px;border-right:1px solid var(--border);}
+.hstat:last-child{border-right:none;}
+.hstat-num{font-family:'IBM Plex Mono',monospace;font-size:1.3rem;font-weight:600;color:var(--accent);line-height:1;margin-bottom:3px;}
+.hstat-lbl{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--dim);line-height:1.3;}
+.hero-links{display:flex;gap:10px;flex-wrap:wrap;}
+.btn{font-family:'IBM Plex Mono',monospace;font-size:.74rem;font-weight:500;padding:9px 18px;border:1px solid;border-radius:3px;text-decoration:none;cursor:pointer;display:inline-block;}
+.btn-fill{background:var(--accent);border-color:var(--accent);color:var(--bg);}
+.btn-fill:hover{background:var(--accent2);border-color:var(--accent2);opacity:1;}
+.btn-line{background:transparent;border-color:var(--border2);color:var(--mid);}
+.btn-line:hover{border-color:var(--mid);color:var(--hi);opacity:1;}
+
+/* WORK */
+.proj-list{max-width:900px;margin:0 auto;}
+.proj-item{border-bottom:1px solid var(--border);cursor:pointer;}
+.proj-item:last-child{border-bottom:none;}
+.proj-item:hover{background:var(--bg-card);}
+.proj-row{display:grid;grid-template-columns:40px 1fr auto;gap:0 16px;align-items:start;padding:22px 20px;}
+.proj-idx{font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--dim);padding-top:3px;}
+.proj-name{font-family:'IBM Plex Mono',monospace;font-size:.88rem;font-weight:600;color:var(--hi);margin-bottom:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.proj-arrow{font-size:.75rem;color:var(--accent);opacity:0;transform:translateX(-4px);transition:opacity .15s,transform .15s;}
+.proj-item:hover .proj-arrow,.proj-item.open .proj-arrow{opacity:1;transform:translateX(0);}
+.proj-item.open .proj-arrow{transform:rotate(90deg);}
+.proj-desc{font-size:.85rem;color:var(--mid);line-height:1.6;max-width:500px;margin-bottom:8px;}
+.proj-tags{display:flex;gap:5px;flex-wrap:wrap;}
+.proj-metric{text-align:right;flex-shrink:0;}
+.proj-metric-val{font-family:'IBM Plex Mono',monospace;font-size:.88rem;font-weight:600;color:var(--accent);line-height:1.2;}
+.proj-metric-lbl{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--dim);margin-top:2px;}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:var(--mid);background:var(--bg-code);border:1px solid var(--border);border-radius:2px;padding:2px 7px;}
+.tag-accent{color:var(--accent);border-color:var(--accent);background:transparent;}
+
+/* CASE PANEL */
+.case-panel{display:none;border-top:1px solid var(--border2);background:var(--bg-card);}
+.case-panel.open{display:block;}
+.case-content{max-width:900px;margin:0 auto;padding:28px 20px 36px;display:grid;grid-template-columns:1fr 200px;gap:0 40px;}
+.case-block{margin-bottom:28px;}
+.case-label{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.case-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.case-p{font-size:.88rem;color:var(--txt);line-height:1.82;}
+.case-p+.case-p{margin-top:.85em;}
+.step-list{list-style:none;padding:0;counter-reset:steps;}
+.step-list li{counter-increment:steps;padding:10px 0 10px 28px;border-bottom:1px solid var(--border);font-size:.86rem;color:var(--txt);line-height:1.7;position:relative;}
+.step-list li:last-child{border-bottom:none;}
+.step-list li::before{content:counter(steps,decimal-leading-zero);position:absolute;left:0;top:11px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--accent);}
+.result-list{list-style:none;padding:0;}
+.result-list li{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:.86rem;color:var(--txt);line-height:1.65;align-items:flex-start;}
+.result-list li:last-child{border-bottom:none;}
+.result-list li::before{content:'\2192';color:var(--accent);font-family:'IBM Plex Mono',monospace;flex-shrink:0;margin-top:1px;}
+.learn{background:var(--bg);border:1px solid var(--border);border-left:2px solid var(--accent);padding:14px 16px;margin-top:6px;}
+.learn-lbl{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px;}
+.learn p{font-size:.84rem;color:var(--mid);line-height:1.78;}
+.diag-box{border:1px solid var(--border);background:var(--bg);padding:18px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.diag-cap{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--dim);text-align:center;margin-top:10px;}
+.case-side{border-left:1px solid var(--border);padding-left:24px;}
+.side-block{margin-bottom:24px;}
+.side-lbl{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+.side-metric{background:var(--bg);border:1px solid var(--border);padding:12px 14px;margin-bottom:6px;}
+.side-metric .n{font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:600;color:var(--accent);line-height:1;margin-bottom:3px;}
+.side-metric .d{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--dim);line-height:1.3;}
+.side-val{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--txt);line-height:1.7;}
+.side-tags{display:flex;flex-direction:column;gap:4px;}
+
+/* ABOUT */
+.about-inner{max-width:900px;margin:0 auto;padding:32px 20px;display:grid;grid-template-columns:1fr 200px;gap:0 40px;}
+.about-p{font-size:.92rem;color:var(--txt);line-height:1.88;margin-bottom:1.1em;}
+.about-p strong{color:var(--hi);}
+.principles{margin-top:32px;border-top:1px solid var(--border);padding-top:24px;}
+.principles-lbl{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.principle{padding:14px 0;border-bottom:1px solid var(--border);}
+.principle:last-child{border-bottom:none;}
+.pr-name{font-family:'IBM Plex Mono',monospace;font-size:.73rem;color:var(--accent);margin-bottom:5px;}
+.pr-desc{font-size:.84rem;color:var(--mid);line-height:1.72;}
+.about-side{border-left:1px solid var(--border);padding-left:28px;}
+.about-photo{width:100%;max-width:160px;aspect-ratio:1;object-fit:cover;object-position:center top;border:1px solid var(--border);border-radius:3px;margin-bottom:18px;}
+.kv-table{width:100%;border-collapse:collapse;}
+.kv-table tr{border-bottom:1px solid var(--border);}
+.kv-table tr:last-child{border-bottom:none;}
+.kv-table td{font-family:'IBM Plex Mono',monospace;font-size:.72rem;padding:8px 0;vertical-align:top;line-height:1.4;}
+.kv-table td:first-child{color:var(--dim);width:52%;padding-right:8px;}
+.kv-table td:last-child{color:var(--hi);text-align:right;}
+.v-accent{color:var(--accent) !important;}
+
+/* SKILLS */
+.skills-inner{max-width:900px;margin:0 auto;padding:28px 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+.skill-col{padding:0 24px 0 0;border-right:1px solid var(--border);}
+.skill-col:last-child{border-right:none;padding-right:0;}
+.skill-col:not(:first-child){padding-left:24px;}
+.skill-cat{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.skill-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.74rem;color:var(--txt);}
+.skill-row:last-child{border-bottom:none;}
+.pips{display:flex;gap:2px;}
+.pip{width:8px;height:3px;background:var(--border2);border-radius:1px;}
+.pip.on{background:var(--accent);}
+.skill-gap{margin-top:20px;}
+
+/* RESUME */
+.resume-inner{max-width:900px;margin:0 auto;}
+.resume-entry{display:grid;grid-template-columns:140px 1fr;border-bottom:1px solid var(--border);}
+.resume-entry:last-child{border-bottom:none;}
+.re-date{padding:22px 20px 22px 20px;border-right:1px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--dim);line-height:1.6;}
+.re-date .now{color:var(--accent);}
+.re-body{padding:22px 20px;}
+.re-role{font-family:'IBM Plex Mono',monospace;font-size:.84rem;font-weight:600;color:var(--hi);margin-bottom:2px;}
+.re-co{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--accent);margin-bottom:12px;}
+.re-list{list-style:none;padding:0;}
+.re-list li{font-size:.84rem;color:var(--mid);line-height:1.7;padding:3px 0 3px 14px;position:relative;}
+.re-list li::before{content:'\2013';position:absolute;left:0;color:var(--border2);}
+
+/* CONTACT */
+.contact-inner{max-width:900px;margin:0 auto;padding:32px 20px;display:grid;grid-template-columns:1fr 1fr;gap:0 40px;}
+.con-lbl{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.con-row{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.76rem;align-items:baseline;}
+.con-row:last-child{border-bottom:none;}
+.con-k{color:var(--dim);width:80px;flex-shrink:0;}
+.con-v{color:var(--txt);}
+.con-v a{color:var(--accent);text-decoration:none;}
+.con-v a:hover{text-decoration:underline;}
+.con-v.green{color:var(--accent);}
+.role-card{background:var(--bg-card);border:1px solid var(--border);border-radius:3px;padding:14px 16px;margin-bottom:10px;}
+.role-card .rc-k{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--dim);margin-bottom:5px;}
+.role-card .rc-v{font-size:.84rem;color:var(--txt);line-height:1.65;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;background:var(--bg);}
+.foot-l{font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--dim);}
+.foot-links{display:flex;gap:18px;}
+.foot-links a{font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--dim);text-decoration:none;transition:color .15s;}
+.foot-links a:hover{color:var(--accent);}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .hero-stats{width:100%;}
+  .hstat{flex:1;padding:12px 14px;}
+  .proj-row{grid-template-columns:36px 1fr;}
+  .proj-metric{display:none;}
+  .case-content{grid-template-columns:1fr;}
+  .case-side{border-left:none;padding-left:0;border-top:1px solid var(--border);padding-top:24px;margin-top:4px;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .about-inner{grid-template-columns:1fr;}
+  .about-side{border-left:none;padding-left:0;border-top:1px solid var(--border);padding-top:24px;display:flex;gap:20px;align-items:flex-start;}
+  .about-photo{max-width:100px;margin-bottom:0;flex-shrink:0;}
+  .skills-inner{grid-template-columns:1fr;}
+  .skill-col{border-right:none;padding:0;border-bottom:1px solid var(--border);padding-bottom:20px;margin-bottom:20px;}
+  .skill-col:not(:first-child){padding-left:0;}
+  .skill-col:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0;}
+  .resume-entry{grid-template-columns:1fr;}
+  .re-date{padding:18px 20px 4px;border-right:none;}
+  .re-body{padding-top:6px;}
+  .contact-inner{grid-template-columns:1fr;gap:28px;}
+}
+@media(max-width:480px){
+  .hero-h1{font-size:1.7rem;}
+  .hero-stats{flex-direction:column;border-radius:3px;}
+  .hstat{border-right:none;border-bottom:1px solid var(--border);}
+  .hstat:last-child{border-bottom:none;}
+}
+</style>
+</head>
+<body>
+<a href="#hero" class="skip">skip to content</a>
+
+<header class="nav">
+  <a href="#hero" class="nav-brand">surya_<span>singh</span></a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#work">work</a>
+    <a href="#about">about</a>
+    <a href="#skills">skills</a>
+    <a href="#resume">resume</a>
+    <a href="#contact">contact</a>
+  </nav>
+  <div class="nav-right">
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
+      <span id="themeIcon">&#9728;</span>
+      <span id="themeLabel">light</span>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobileMenu">
+  <a href="#hero">home</a>
+  <a href="#work">work</a>
+  <a href="#about">about</a>
+  <a href="#skills">skills</a>
+  <a href="#resume">resume</a>
+  <a href="#contact">contact</a>
+</nav>
+
+<div class="page">
+
+<section id="hero" class="section">
+  <div class="hero-inner">
+    <div class="status-pill"><span class="status-dot"></span>open to opportunities</div>
+    <div class="hero-eyebrow">Senior Data Engineer &middot; Dallas, TX &middot; 2019&ndash;present</div>
+    <h1 class="hero-h1">Surya Partap<br><span class="acc">Singh</span></h1>
+    <p class="hero-sub-line">// pipelines &middot; lakehouse &middot; reliability &middot; 5&ndash;10 TB/day</p>
+    <p class="hero-desc">Five years designing <strong>fault-tolerant data infrastructure</strong> at scale. Currently at Cencora (Fortune 10) &mdash; building the lakehouses and quality systems that power clinical, financial, and pharmacy decisions. I care about systems that hold up under pressure, not just on demo day.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num">98%</div><div class="hstat-lbl">latency<br>reduction</div></div>
+      <div class="hstat"><div class="hstat-num">+30%</div><div class="hstat-lbl">pipeline<br>throughput</div></div>
+      <div class="hstat"><div class="hstat-num">10 TB</div><div class="hstat-lbl">processed<br>daily</div></div>
+    </div>
+    <div class="hero-links">
+      <a href="#work" class="btn btn-fill">view work &darr;</a>
+      <a href="mailto:psurya.924@gmail.com" class="btn btn-line">psurya.924@gmail.com</a>
+      <a href="https://linkedin.com/in/surya6032/" target="_blank" rel="noopener" class="btn btn-line">linkedin &nearr;</a>
+    </div>
+  </div>
+</section>
+
+<section id="work" class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="idx">02</span> project_index</div>
+    <div class="section-meta">4 entries &middot; click to expand</div>
+  </div>
+  <div class="proj-list">
+
+    <div class="proj-item" id="pi1">
+      <div class="proj-row" onclick="toggleCase('pc1','pi1')" role="button" tabindex="0" aria-expanded="false">
+        <div class="proj-idx">001</div>
+        <div class="proj-main">
+          <div class="proj-name">medallion_lakehouse.arch <span class="proj-arrow">&#8250;</span> <span class="tag tag-accent">featured</span></div>
+          <div class="proj-desc">Bronze/Silver/Gold lakehouse on Databricks + Delta Lake. Unified clinical, financial &amp; pharmacy data with schema enforcement and CDF incrementality.</div>
+          <div class="proj-tags"><span class="tag">databricks</span><span class="tag">delta-lake</span><span class="tag">pyspark</span><span class="tag">adf</span><span class="tag">adls-gen2</span></div>
+        </div>
+        <div class="proj-metric"><div class="proj-metric-val">10 TB</div><div class="proj-metric-lbl">per day</div></div>
+      </div>
+      <div class="case-panel" id="pc1">
+        <div class="case-content">
+          <div class="case-body">
+            <div class="case-block"><div class="case-label">context</div><p class="case-p">Part of the data engineering team (3&ndash;5 engineers) at a Fortune 10 pharmaceutical distributor. Led the build of a unified data platform to centralize clinical, financial, and pharmacy datasets &mdash; processing 5&ndash;10 TB/day from multiple upstream source systems.</p></div>
+            <div class="case-block"><div class="case-label">problem</div><p class="case-p">Data siloed across domains with no enforced schema contracts. Analytics teams maintained conflicting transformation logic. Upstream schema changes corrupted reports silently. Every pipeline run reprocessed the full dataset regardless of delta &mdash; expensive at 5&ndash;10 TB/day.</p></div>
+            <div class="case-block">
+              <div class="case-label">architecture</div>
+              <div class="diag-box">
+                <svg viewBox="0 0 760 270" xmlns="http://www.w3.org/2000/svg" style="width:100%;min-width:420px;font-family:'IBM Plex Mono',monospace;">
+                  <defs>
+                    <marker id="arr" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 L1,3 Z" fill="#505050"/></marker>
+                    <marker id="arrg" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 L1,3 Z" fill="#5eead4"/></marker>
+                  </defs>
+                  <rect x="4" y="18" width="104" height="210" fill="var(--bg-card)" stroke="var(--border)" stroke-width="1"/>
+                  <text x="56" y="36" text-anchor="middle" font-size="8" fill="var(--dim)" letter-spacing=".08em">SOURCES</text>
+                  <line x1="10" y1="42" x2="102" y2="42" stroke="var(--border)" stroke-width="1"/>
+                  <rect x="10" y="48" width="92" height="21" fill="var(--bg-code)" stroke="var(--border)"/><text x="56" y="62.5" text-anchor="middle" font-size="8.5" fill="var(--txt)">clinical ehr</text>
+                  <rect x="10" y="74" width="92" height="21" fill="var(--bg-code)" stroke="var(--border)"/><text x="56" y="88.5" text-anchor="middle" font-size="8.5" fill="var(--txt)">financial db</text>
+                  <rect x="10" y="100" width="92" height="21" fill="var(--bg-code)" stroke="var(--border)"/><text x="56" y="114.5" text-anchor="middle" font-size="8.5" fill="var(--txt)">pharmacy ops</text>
+                  <rect x="10" y="126" width="92" height="21" fill="var(--bg-code)" stroke="var(--border)"/><text x="56" y="140.5" text-anchor="middle" font-size="8.5" fill="var(--txt)">operational</text>
+                  <text x="56" y="202" text-anchor="middle" font-size="7.5" fill="var(--dim)">5-10 TB/day</text>
+                  <rect x="138" y="90" width="72" height="58" fill="var(--bg-card)" stroke="var(--accent)" stroke-width="1"/>
+                  <text x="174" y="116" text-anchor="middle" font-size="7.5" fill="var(--dim)">INGEST</text>
+                  <text x="174" y="130" text-anchor="middle" font-size="8" fill="var(--accent)" font-weight="600">ADF</text>
+                  <line x1="108" y1="58.5" x2="136" y2="112" stroke="var(--border)" stroke-width="1" marker-end="url(#arr)"/>
+                  <line x1="108" y1="84.5" x2="136" y2="118" stroke="var(--border)" stroke-width="1" marker-end="url(#arr)"/>
+                  <line x1="108" y1="110.5" x2="136" y2="124" stroke="var(--border)" stroke-width="1" marker-end="url(#arr)"/>
+                  <line x1="108" y1="136.5" x2="136" y2="130" stroke="var(--border)" stroke-width="1" marker-end="url(#arr)"/>
+                  <rect x="244" y="8" width="128" height="220" fill="var(--bg-card)" stroke="#7c5c0a" stroke-width="1.5"/>
+                  <rect x="244" y="8" width="128" height="24" fill="#7c5c0a"/>
+                  <text x="308" y="24.5" text-anchor="middle" font-size="9" fill="#f5c842" font-weight="600" letter-spacing=".06em">BRONZE</text>
+                  <text x="308" y="48" text-anchor="middle" font-size="7.5" fill="#9a6e10">raw ingestion</text>
+                  <rect x="254" y="54" width="108" height="20" fill="var(--bg-code)" stroke="var(--border)"/><text x="308" y="68" text-anchor="middle" font-size="7.5" fill="var(--txt)">schema enforcement</text>
+                  <rect x="254" y="79" width="108" height="20" fill="var(--bg-code)" stroke="var(--border)"/><text x="308" y="93" text-anchor="middle" font-size="7.5" fill="var(--txt)">change data feed</text>
+                  <rect x="254" y="104" width="108" height="20" fill="var(--bg-code)" stroke="var(--border)"/><text x="308" y="118" text-anchor="middle" font-size="7.5" fill="var(--txt)">delta lake tables</text>
+                  <rect x="254" y="129" width="108" height="20" fill="var(--bg-code)" stroke="var(--border)"/><text x="308" y="143" text-anchor="middle" font-size="7.5" fill="var(--txt)">adls gen2</text>
+                  <text x="308" y="208" text-anchor="middle" font-size="7" fill="#7c5c0a">append-only · audit trail</text>
+                  <line x1="210" y1="119" x2="242" y2="119" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arrg)"/>
+                  <rect x="408" y="8" width="128" height="220" fill="var(--bg-card)" stroke="#1a4d8a" stroke-width="1.5"/>
+                  <rect x="408" y="8" width="128" height="24" fill="#1a4d8a"/>
+                  <text x="472" y="24.5" text-anchor="middle" font-size="9" fill="#90c8ff" font-weight="600" letter-spacing=".06em">SILVER</text>
+                  <text x="472" y="48" text-anchor="middle" font-size="7.5" fill="#1a4d8a">cleansed + conformed</text>
+                  <rect x="418" y="54" width="108" height="20" fill="var(--bg-code)" stroke="var(--border)"/><text x="472" y="68" text-anchor="middle" font-size="7.5" fill="var(--txt)">pyspark transforms</text>
+                  <rect x="418" y="79" width="108" height="20" fill="var(--bg-code)" stroke="var(--border)"/><text x="472" y="93" text-anchor="middle" font-size="7.5" fill="var(--txt)">data quality gates</text>
+                  <rect x="418" y="104" width="108" height="20" fill="var(--bg-code)" stroke="var(--border)"/><text x="472" y="118" text-anchor="middle" font-size="7.5" fill="var(--txt)">deduplication</text>
+                  <rect x="418" y="129" width="108" height="20" fill="var(--bg-code)" stroke="var(--border)"/><text x="472" y="143" text-anchor="middle" font-size="7.5" fill="var(--txt)">z-order clustering</text>
+                  <text x="472" y="208" text-anchor="middle" font-size="7" fill="#1a4d8a">standardized schemas</text>
+                  <line x1="372" y1="119" x2="406" y2="119" stroke="var(--dim)" stroke-width="1" marker-end="url(#arr)"/>
+                  <rect x="572" y="8" width="128" height="220" fill="var(--bg-card)" stroke="#1a6a1a" stroke-width="1.5"/>
+                  <rect x="572" y="8" width="128" height="24" fill="#1a6a1a"/>
+                  <text x="636" y="24.5" text-anchor="middle" font-size="9" fill="#7ee8a2" font-weight="600" letter-spacing=".06em">GOLD</text>
+                  <text x="636" y="48" text-anchor="middle" font-size="7.5" fill="#1a6a1a">business-ready</text>
+                  <rect x="582" y="54" width="108" height="20" fill="var(--bg-code)" stroke="var(--border)"/><text x="636" y="68" text-anchor="middle" font-size="7.5" fill="var(--txt)">canonical datasets</text>
+                  <rect x="582" y="79" width="108" height="20" fill="var(--bg-code)" stroke="var(--border)"/><text x="636" y="93" text-anchor="middle" font-size="7.5" fill="var(--txt)">aggregated metrics</text>
+                  <rect x="582" y="104" width="108" height="20" fill="var(--bg-code)" stroke="var(--border)"/><text x="636" y="118" text-anchor="middle" font-size="7.5" fill="var(--txt)">financial reports</text>
+                  <rect x="582" y="129" width="108" height="20" fill="var(--bg-code)" stroke="var(--border)"/><text x="636" y="143" text-anchor="middle" font-size="7.5" fill="var(--txt)">analytics / bi</text>
+                  <text x="636" y="208" text-anchor="middle" font-size="7" fill="#1a6a1a">query-optimized · trusted</text>
+                  <line x1="536" y1="119" x2="570" y2="119" stroke="var(--dim)" stroke-width="1" marker-end="url(#arr)"/>
+                  <text x="380" y="250" text-anchor="middle" font-size="7" fill="var(--dim)">databricks · delta lake · adls gen2 · great expectations · github actions</text>
+                </svg>
+                <p class="diag-cap">fig.1 &mdash; medallion_lakehouse.arch &middot; proprietary business logic omitted</p>
+              </div>
+            </div>
+            <div class="case-block"><div class="case-label">approach</div>
+              <ol class="step-list">
+                <li>Defined layer contracts: Bronze = append-only raw; Silver = cleansed/conformed; Gold = aggregated/business-ready</li>
+                <li>Configured schema enforcement at Bronze &mdash; malformed records rejected at source, silent corruption eliminated</li>
+                <li>Implemented CDF for incremental Bronze&rarr;Silver&rarr;Gold &mdash; no full table scans on 5&ndash;10 TB/day datasets</li>
+                <li>Applied Z-Order clustering on Gold tables optimized for financial date ranges and clinical patient ID queries</li>
+                <li>Standardized all ingestion via ADF with consistent naming, retry logic, and monitoring across four domains</li>
+                <li>Established team coding standards and code review gates, adopted as team-wide practices</li>
+              </ol>
+            </div>
+            <div class="case-block"><div class="case-label">results</div>
+              <ul class="result-list">
+                <li>Single org-wide source of truth across clinical, financial, and pharmacy &mdash; adopted by all analytics and reporting consumers</li>
+                <li>Schema enforcement eliminated recurring silent data corruption bugs at Bronze ingestion</li>
+                <li>CDF incrementality enabled the 24h&rarr;15min financial reporting latency reduction (see project 002)</li>
+                <li>Multi-million dollar platform initiative delivered on time within existing team headcount</li>
+              </ul>
+            </div>
+            <div class="case-block"><div class="case-label">learning</div><div class="learn"><div class="learn-lbl">// retrospective</div><p>Would introduce formal upstream data contracts earlier. Schema enforcement catches failures at ingest &mdash; formalizing expectations with source system owners catches them before the pipeline, far cheaper at 5&ndash;10 TB/day.</p></div></div>
+          </div>
+          <aside class="case-side">
+            <div class="side-block"><div class="side-lbl">// metrics</div><div class="side-metric"><div class="n">10 TB</div><div class="d">processed daily across 4 domains</div></div><div class="side-metric"><div class="n">3</div><div class="d">enforced layer contracts</div></div></div>
+            <div class="side-block"><div class="side-lbl">// role</div><div class="side-val">Led 3&ndash;5 engineers through design and implementation, established team coding standards.</div></div>
+            <div class="side-block"><div class="side-lbl">// stack</div><div class="side-tags"><span class="tag">databricks</span><span class="tag">delta-lake</span><span class="tag">pyspark</span><span class="tag">adf</span><span class="tag">adls-gen2</span><span class="tag">great-expectations</span></div></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-item" id="pi2">
+      <div class="proj-row" onclick="toggleCase('pc2','pi2')" role="button" tabindex="0" aria-expanded="false">
+        <div class="proj-idx">002</div>
+        <div class="proj-main">
+          <div class="proj-name">financial_pipeline.latency <span class="proj-arrow">&#8250;</span></div>
+          <div class="proj-desc">Migrated nightly batch to event-driven incremental using Delta CDF. Three-week parallel validation. Finance and executives got same-day data for the first time.</div>
+          <div class="proj-tags"><span class="tag">delta-lake-cdf</span><span class="tag">databricks-jobs</span><span class="tag">adls</span><span class="tag">adf</span></div>
+        </div>
+        <div class="proj-metric"><div class="proj-metric-val">98%</div><div class="proj-metric-lbl">less latency</div></div>
+      </div>
+      <div class="case-panel" id="pc2">
+        <div class="case-content">
+          <div class="case-body">
+            <div class="case-block"><div class="case-label">context</div><p class="case-p">Financial reporting pipeline serving FP&amp;A and executive leadership. Ran once nightly, completing around 6am. Finance teams arrived at 8am making decisions on data at least 26 hours old. Leadership flagged the lag as a strategic blocker.</p></div>
+            <div class="case-block"><div class="case-label">problem</div><p class="case-p">Full-table read/write on every run &mdash; even when only 2&ndash;3% of records had changed overnight. The 24-hour lag delayed pricing decisions, contract adjustments, and exception handling by a full business day.</p></div>
+            <div class="case-block"><div class="case-label">approach</div>
+              <ol class="step-list">
+                <li>Profiled the existing pipeline &mdash; full-table read was the bottleneck, not cluster size</li>
+                <li>Switched to Delta Lake CDF to process only new/modified records since last successful run</li>
+                <li>Replaced scheduled nightly trigger with event-driven Databricks Jobs firing on upstream data landing in ADLS</li>
+                <li>Built SLA monitoring and retry logic for the new always-on pattern</li>
+                <li>Ran 3 weeks of parallel execution with automated output comparison before decommissioning the old pipeline</li>
+              </ol>
+            </div>
+            <div class="case-block"><div class="case-label">results</div>
+              <ul class="result-list">
+                <li>98% latency reduction: 24 hours &rarr; 15 minutes from source data landing to Gold-layer availability</li>
+                <li>Finance and executive teams had same-day data for the first time</li>
+                <li>Zero correctness issues post-cutover &mdash; 3-week parallel run confirmed full output parity</li>
+                <li>Monitoring layer reduced on-call incidents for the data engineering team</li>
+              </ul>
+            </div>
+            <div class="case-block"><div class="case-label">learning</div><div class="learn"><div class="learn-lbl">// retrospective</div><p>Three weeks of parallel validation felt conservative &mdash; it was the right call. Financial data discrepancies in regulated environments carry significant remediation cost. Parallel validation is now non-negotiable for any financial or compliance-sensitive pipeline migration.</p></div></div>
+          </div>
+          <aside class="case-side">
+            <div class="side-block"><div class="side-lbl">// metrics</div><div class="side-metric"><div class="n">98%</div><div class="d">latency cut (24h &rarr; 15min)</div></div><div class="side-metric"><div class="n">3 wk</div><div class="d">parallel validation run</div></div></div>
+            <div class="side-block"><div class="side-lbl">// role</div><div class="side-val">Led investigation, architecture redesign, SLA monitoring, and cutover.</div></div>
+            <div class="side-block"><div class="side-lbl">// stack</div><div class="side-tags"><span class="tag">delta-lake-cdf</span><span class="tag">databricks-jobs</span><span class="tag">adls</span><span class="tag">pyspark</span></div></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-item" id="pi3">
+      <div class="proj-row" onclick="toggleCase('pc3','pi3')" role="button" tabindex="0" aria-expanded="false">
+        <div class="proj-idx">003</div>
+        <div class="proj-main">
+          <div class="proj-name">spark_pipeline.optimize <span class="proj-arrow">&#8250;</span></div>
+          <div class="proj-desc">Profiling-first investigation across three production PySpark jobs on 5&ndash;10 TB/day workloads. Partitioning, broadcast joins, caching, and executor tuning to recover 30% throughput.</div>
+          <div class="proj-tags"><span class="tag">pyspark</span><span class="tag">spark-ui</span><span class="tag">databricks</span><span class="tag">delta-lake</span></div>
+        </div>
+        <div class="proj-metric"><div class="proj-metric-val">+30%</div><div class="proj-metric-lbl">throughput</div></div>
+      </div>
+      <div class="case-panel" id="pc3">
+        <div class="case-content">
+          <div class="case-body">
+            <div class="case-block"><div class="case-label">context</div><p class="case-p">Production PySpark pipelines handling 5&ndash;10 TB/day of mixed structured and semi-structured data. Three jobs running 40&ndash;60% slower than original benchmarks, missing downstream SLAs. Compute costs growing faster than data volume &mdash; a clear diagnostic signal.</p></div>
+            <div class="case-block"><div class="case-label">problem</div><p class="case-p">The instinct was to add compute. That was the wrong answer. Jobs ran and produced correct output &mdash; they were just slow. The inefficiency was in code and configuration, not the cluster.</p></div>
+            <div class="case-block"><div class="case-label">approach</div>
+              <ol class="step-list">
+                <li>Profiled using Spark UI DAG visualization and query execution plans &mdash; identified wide shuffles, full table scans, and skewed partitions</li>
+                <li>Rewrote partition scheme with high-cardinality date/entity columns &mdash; enabled partition pruning on filtered reads</li>
+                <li>Added broadcast join hints where one side qualified &mdash; eliminated expensive sort-merge shuffle stages</li>
+                <li>Added intermediate caching at correct DAG checkpoints to avoid redundant I/O</li>
+                <li>Tuned shuffle partition counts, executor memory, and parallelism per job profile</li>
+                <li>Documented a tuning playbook &mdash; now mandatory pre-production checklist for all new builds</li>
+              </ol>
+            </div>
+            <div class="case-block"><div class="case-label">results</div>
+              <ul class="result-list">
+                <li>30% average throughput improvement across the three optimized pipelines</li>
+                <li>All downstream SLAs consistently met even as data volume continued growing</li>
+                <li>DBU consumption reduced &mdash; compute tracked data volume growth rather than outpacing it</li>
+                <li>Tuning playbook adopted as mandatory pre-production checklist across the team</li>
+              </ul>
+            </div>
+            <div class="case-block"><div class="case-label">learning</div><div class="learn"><div class="learn-lbl">// retrospective</div><p>Profile before you optimize &mdash; always. On 5&ndash;10 TB/day workloads, adding compute is expensive and usually wrong. Every bottleneck here was in the code. Profiling is now always the first deliverable on any performance investigation.</p></div></div>
+          </div>
+          <aside class="case-side">
+            <div class="side-block"><div class="side-lbl">// metrics</div><div class="side-metric"><div class="n">+30%</div><div class="d">throughput across optimized jobs</div></div><div class="side-metric"><div class="n">&#8595; DBU</div><div class="d">compute cost reduced</div></div></div>
+            <div class="side-block"><div class="side-lbl">// role</div><div class="side-val">Led investigation and all optimizations. Wrote team tuning playbook.</div></div>
+            <div class="side-block"><div class="side-lbl">// stack</div><div class="side-tags"><span class="tag">pyspark</span><span class="tag">spark-ui</span><span class="tag">databricks</span><span class="tag">delta-lake</span></div></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-item" id="pi4">
+      <div class="proj-row" onclick="toggleCase('pc4','pi4')" role="button" tabindex="0" aria-expanded="false">
+        <div class="proj-idx">004</div>
+        <div class="proj-main">
+          <div class="proj-name">cicd_infra.deploy <span class="proj-arrow">&#8250;</span></div>
+          <div class="proj-desc">Built automated CI/CD and pre-production data quality gates from scratch &mdash; GitHub Actions, Azure DevOps, ARM Templates, and Great Expectations checkpoints for a 3&ndash;5 person team.</div>
+          <div class="proj-tags"><span class="tag">github-actions</span><span class="tag">azure-devops</span><span class="tag">great-expectations</span><span class="tag">arm-templates</span></div>
+        </div>
+        <div class="proj-metric"><div class="proj-metric-val">0</div><div class="proj-metric-lbl">manual deploys</div></div>
+      </div>
+      <div class="case-panel" id="pc4">
+        <div class="case-content">
+          <div class="case-body">
+            <div class="case-block"><div class="case-label">context</div><p class="case-p">Pipelines were deployed manually &mdash; engineers pushed directly to Databricks workspaces with no version control gates, automated testing, or rollback path. In a regulated environment handling clinical and financial data, this was both a reliability and compliance risk.</p></div>
+            <div class="case-block"><div class="case-label">problem</div><p class="case-p">Three overlapping failure modes: deployment risk (anyone could push to prod), quality gaps (data issues reached Gold before detection), and audit exposure (no traceable record of changes in a HIPAA-adjacent environment).</p></div>
+            <div class="case-block"><div class="case-label">approach</div>
+              <ol class="step-list">
+                <li>GitHub Actions: automated test runs on every PR &mdash; unit tests, schema validation, integration tests against staging</li>
+                <li>Azure DevOps: release pipelines with required approvals and audit-logged trail for every production change</li>
+                <li>ARM Templates: infrastructure-as-code for Azure provisioning &mdash; infra changes reviewed same as code changes</li>
+                <li>Great Expectations: checkpoints between Bronze&rarr;Silver and Silver&rarr;Gold covering schema, nulls, referential integrity</li>
+                <li>Ran two live working sessions with the team &mdash; walkthrough from local dev through CI to release, plus internal runbook</li>
+              </ol>
+            </div>
+            <div class="case-block"><div class="case-label">results</div>
+              <ul class="result-list">
+                <li>Zero manual deployments to production &mdash; every change goes through automated CI/CD</li>
+                <li>Pre-production quality gates catch schema drift and integrity failures before business-facing tables</li>
+                <li>Audit-ready deployment history &mdash; traceable by engineer, timestamp, and approver</li>
+                <li>Framework adopted as team standard &mdash; all new pipelines built against same CI/CD and quality gate patterns</li>
+              </ul>
+            </div>
+            <div class="case-block"><div class="case-label">learning</div><div class="learn"><div class="learn-lbl">// retrospective</div><p>Process changes are adoption problems, not technical ones. The two live working sessions mattered more than the documentation. Start team process changes with walkthroughs much earlier in the rollout.</p></div></div>
+          </div>
+          <aside class="case-side">
+            <div class="side-block"><div class="side-lbl">// metrics</div><div class="side-metric"><div class="n">0</div><div class="d">manual production deployments</div></div><div class="side-metric"><div class="n">100%</div><div class="d">pipelines with quality gates</div></div></div>
+            <div class="side-block"><div class="side-lbl">// role</div><div class="side-val">Built from scratch. ARM Templates, GitHub Actions, Azure DevOps, Great Expectations. Led team onboarding.</div></div>
+            <div class="side-block"><div class="side-lbl">// stack</div><div class="side-tags"><span class="tag">github-actions</span><span class="tag">azure-devops</span><span class="tag">great-expectations</span><span class="tag">arm-templates</span></div></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="about" class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="idx">03</span> about.md</div>
+  </div>
+  <div class="about-inner">
+    <div class="about-body">
+      <p class="about-p">I'm a Senior Data Engineer based in Dallas, TX. For the last five years I've been building the infrastructure that sits between raw data and the decisions organizations make with it &mdash; pipelines, lakehouses, and the quality systems that keep them honest.</p>
+      <p class="about-p">Most of my work has been in healthcare and pharmaceutical distribution, where data reliability isn't negotiable. Clinical datasets, financial records, pharmacy operations &mdash; these need to be <strong>right, traceable, and on time</strong>. That constraint has made me a more disciplined engineer than most environments would produce.</p>
+      <p class="about-p">I care about the details that make systems maintainable: schema contracts, incremental load patterns, profiling before optimizing, and documentation junior engineers can actually use. I've led teams of 3&ndash;5 engineers and believe good architecture is only as good as the standards the team executes consistently.</p>
+      <div class="principles">
+        <div class="principles-lbl">// engineering principles</div>
+        <div class="principle"><div class="pr-name">profile_before_optimize()</div><p class="pr-desc">Spark bottlenecks are rarely where intuition says. I start every investigation with the query plan and DAG. On 5&ndash;10 TB/day workloads, a bad partition strategy has real dollar cost.</p></div>
+        <div class="principle"><div class="pr-name">reliability_over_features()</div><p class="pr-desc">A pipeline that runs once and breaks is worth less than a boring pipeline that runs every day without incident. Incremental loads, schema enforcement, idempotent writes &mdash; the patterns that hold up.</p></div>
+        <div class="principle"><div class="pr-name">standards_compound()</div><p class="pr-desc">Shared naming conventions and ETL patterns feel like overhead on day one. On day 300, they're why a junior engineer can debug a production incident without escalating.</p></div>
+      </div>
+    </div>
+    <aside class="about-side">
+      <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCADIAMgDASIAAhEBAxEB/8QAHQAAAQQDAQEAAAAAAAAAAAAAAgABAwcEBggFCf/EAEAQAAEDAwIEBAMGAwUIAwAAAAECAxEABAUhMQYSQVEHYXGBCBORFCKhscHRFTJCIyRj4fAWNFJic4OSojOT8f/EABoBAAIDAQEAAAAAAAAAAAAAAAACAQMEBQb/xAAlEQACAgICAgMAAgMAAAAAAAAAAQIRAyEEMRJBE1FhBSIyQlL/2gAMAwEAAhEDEQA/AOg0jSpEjpTADp9RRirGxRgBRga0htTgVAwgNqICRTgU4GtAowBp41p4pwKAGjSlAiaeKUUANNMSANTGtQZC8trG2XcXdw0w0gSpbiwlIHckkAe9ag/4ncEWynFu8R2SlQA200fmLV10ABJmfTQedDaXZKTfo3dJB23pyKpzN+P3CGPui0yi6uChR5wlogjuBsCfeDG40ryHfiOsVo+Za8O3RRzQS64AQO8CRMdJ670eSRPi2XzFKKprhTx74fyV+1b5NTNkHzDREn0neCex37zANw2txb3TCbi2fbeaWAUrQQQQRMgj1qU0yGqJIpCn6U9SQNvTH0p41pGgAFUJFSHahIEUARmaFVSmgUKAIlDSlREUqAHiiA0pt6JIpRhwKKKUUQGlBDGAogNKW1OKCBop6cUjQA1YGey1jhcY7f5C7atbdoErddUAlI767nsOprx/EPjXEcF4lV5knJcIPymUkcyz+g7k+0nSuPfF/j3iLjG6Ll/cLRZMD5iLdBhtMj7oA6mCNTJ13giocqGUW1ZN42eLd5xXl327R9xvGNOlNs3MSkR98jqSZM9oA2M1qjiA/NWH+a45zK+aSCd9+teO80664VEEAmQD61KiwfaBe5Jgxr0pKXsZeXo3Ni6bu7APtm1SQSC0pJBJg69jOwBjcVgqunXrtKzZ3CmkyDooBI2jsP8AQrxLK7umlhKnmQ2NCl1sER1GgmtvsFv3uIKrNlLCmgnlcQ8FBZA1EwSO8EzGwNR0OnZ47zraFlKbdJUobgkxB0I1gnSZ79BW08G+KXFmAcZt7fJvIDcBDa1qKCNBqJEwI2PTatLfy6lOqZfaLipgoIAMjzG9S2Sbd0l+7bSgT91sgggaSIPTpJpqsS9nYHhH4yp4luU47MWrTDwAHzm1kiSQJUCAQCSBImNZiKuWvnha563xj7blmoNvoXAUhRBQkzIMHUb6Hp7V2H4LeK2K40xjNjeXDFtm0pANuohJfESFIB3MakDb0qYyfTCUV2izKc09KKsKwSKE0Z3piBQBERQkVKRQEUARK0FKiUPrSoAcUQFMBrRClGHFEBTCnFAo9OBrTUQHnQAqB5YbaU6qeVAKj6ATUkVG+kLZcQUhQUkgg7EEbUAcg/EJmVZfjvIWIf8AmtWSA49EH78pQGwR0EaDutR3NVotLVzZvXDi1FKOcBJ8gTAPmSB9OwrIyL6/t+Xur0rD6nkocCjqCFgmZ69fatdtb7mQ5bplSVuFIEbzM+5BFUu+zRGtItTwW8NbfLWicjkipxtSjyojQx1q0H/CfBkKCWlJBJISDpr5V7ng1YJteErDmSJLYJ6ak1YNzbNLZ50iFDpXEnnnObpnchix44pUc+cQ+DOOuLZxNrytuwSFQAfLyqtnPCXNY7ILeZfQUokgpME+RHn5SK6xvkpBBIgzGuleHlWG1k/dBBEE+1PHlZYKuyJcXFkd1RxTn7dzG5i4t3W1NkKMoUNvMaag1jIuS8ptKEmEgADn+6deoP71ZnxE4gMZFjItNAQPluFPUakH8/wqoUiVgpVAnUzEV18GRZIKRxeTi+LI4+jZCww86i1UUuKQ2ToJkkE7xMA17HBGXdxmZt7hptLlw0sFKSQBpEazIIIkEaggGa1O1fdSAlICUgSowYJ6E9zXrYm+aau0qU0CswTKRqZ7xNO0VRavZ9FeFso3m+HrHKNpKRcshZSSCUmNQSNJBkaV6daV4HXDN14W4N1gQksEKHXmkyT6nX3rdTtVq2kI1sYiRTGi3pjB6VJAB8qA0ZoDQABpU51pUAOBFEPOhAohrSjBU4FMBT0CjjanFMKcCmAekaVORQBwr8TNn/A/ErOWqWgwi8eFyABAIUAQR7kj1FVpwgyu5z9laJSpRU8ICRJkkRXVHxpcCnJ4G14xs+Uu2ADFyiJKmyfuqB8iTPkfKqw+GLg2yyl7d5m+SVOWbwQ0mdAYkk+kiPSs3ImscGzTx4vJkSR0twZZOWuMt2j/AEpAiNgBH6Vt7FuFMnTU7TVSZnxWsuH7lWOsMLdXi2lcq3XAW0bweUEEkabkAHpNQtfEFgAQm4tnmiDBCYUOkxFcfFgm90djJninRYWatXEkgJJ3OmteFctFxA0BnesbFeJ/D/Er5YsHlJfEQFgAme2tYPEvFVjh3m2rhQBenlgiARuPpP0pJY3dezRjkvGzSPFzh9OVximCJUpJgxsY0rlrN466xF+5aXKFBSToqNCO/nV+8UeLjDz6rWyxblwsqKUwZnz0E+exqsuJsjl866ftPD5bbROnylAjvqQDXR4ePLiVPpnN50sWXrtGkMPOiC2ADtMDT0r07ZtxTST8wlZUABuTrW58I8K2d20HXWHmlagpWdPIjTUetZ3hVw7Z5bxex+Iv1NNWKL0rc+YsJCkok8s9zAHvW5STbX0c6WGUUn9nZPg1gHuGvDfDYu5Uo3CWA48DuFK1j2BA9q2+kmAABtFPsKtKhjtQmiO1CaCAVb0KqKhP1oAA6UqVKgAhRChHaiFKAQ2pxvTU4FADjenphTimAfakfOl70hQBoPiPkXLrK2vCbdom6avmyblClBI5BvJIPlAqsOBLDDcFcRcR4xkm1sDetBKrh5KQlZaSeUEkTqTHf8rS47s1W3FNjl07LZWwD/zwCBPtHqa1fh225rq7vnFfMOQcC1hWpBH3YM+QH1rz3Iyy+WcZ3R6bDhx/BCcEr9mq8bXWct1A8M2LJcfWS9dqgqROm5k6dhppHnVOcSP8dqyJZvnnjbgrKyBCFkEweUHYiN5IkzXUdpw0l1anWgEgyHEHYkHWPevGyXC2NW/FzbqJJiFKJH0NW4c/hHqxJ4Fka30Vh4PY1GRWm4urFqyuGSDzoACViRuBIB2iI2MiTNej4qYxp7JWNuVoU04SQt0KSABJJGmugJiRJ0q0Mdh20P29jj7dpplZHzCkQoAESY6CAYPeBXn+MeAW3bIyLaS7bsFC1p0kCRIkbAgkT0ke1fm3k8n0WqC8fFHOOTczL4uDY2TNjaoIDTDbYJcB6rI3I0MnXcCNBXmYh/iVlxDt8wlxHPC0hsIgDsep39Kt7hXhy3uHHGX0FK0EpChssdCPUEH3r2H+Cm1qUlpJWoCQTBj3itWTkpaSKYcNd2aXws2rKLDTqSyqQQ6EagEwQqN40IMTuDOkeKxbN4/JXV3btLD7FytCnCJJAWZM9yNT20GwqzOHMI5Z3g+c18sBRUExuEg/mSB7GtOusZd/7T3yWWnF2jzxQpZEAuqP8oPU/en2PakyTfxt+2WYYL5l7SOreDbtd/wpi7x2fmO2ja1TuSUiTXqzWNiLVNjirSzQISwyhsDtAA/Ssk7V1saaik+6PO5WnkbXVjHahNGfxoDTlYJ3oTRGhJoAE70qFVKgAxoaIE0IogaUAgdKcHTzoRRCpQDg0QoQKIaVID0qVKgDz+IMa3lMY5bOAlQhaCDBChqIPStMu2UM3KAElK5+8kiCO0/jViCvM4mtw9i1KAktKCx6DQ/gTXP5vFWROa7R0eFzHjXxvaZ4LV8LZsqbgKVoQdj5+ta1nspav3ot2nH3LjcpS2AAPWTH0r0LgfMZUEkggaVozV/Z4nIOXWUdLCSrVZBIAkgTAMD1gVx4SfR3E0laN2xHEeExyrZq5WW759MFCyTyjqAYgmRvpMDyFYfHnGuGtMa6nIDmt3QW1IUCeYHQiBJOh2Fa9nc5gri2Uq3ukvCJQUREdxJFVzxC5ir8J+bdrKkkmZBSB566VbGLb2WKDatRPV4Xz9nYcQvWFss3GLBCrZajK2gdeQnqB5zGu2tWQMqm2Y+Y0y24XBupUiPSP1rn8XmHtbttm3vwt9egQ2CSfOAKsrALuDhAXSogKIbKjJIpsqcWt9lcZJppro25l031yXkoKnVnlCUjU7AAfgAKzfDPhjJm6W7l7F5toPfOUm4bKBzAyOUHUmeu0aUPhjbfbc4woiW2JcJPlsfrFW3FdHDhWSMXL0cjkcp4nKMV37EBTGiH40JO9dA5IxoSaI7UJ3igATQGpCNJoFGKAIyPOlTmRrSoAIUWlCKIUoDiiFCO1EN6AHG/lRA0I1p9qlAPNPQ0VSAqZ5KXGlNqEpUCCD1BFI71XHiVxi+zxxwxwDhnQL/L3IcvVpP3mbREqWB2KwlQB6AHYkGjxtEp07JUqT8xaZEgwaw12bBuVOqQlSiIiNBT36HGblxSBBCyCmN4O1KwfQ9c8rp5U7HuK8o4tydHpoTUYqzy8vaYxpgh2yacb1hJbBA9O1V7mMbj3kKSzYNAEkgFnUA6/pVy5vHWyrAvWxSSkSUKVoR3BrQsnbrXcBDCeYrMACNZ0/0avUpRW2asfIlTSejQLTE2jLoeWykEGRIAj9q2U3iFsM27SQlpAgEfpWFxs2iyu27K3eSpzlBdKdQlRBkV5Dt8pCWmGzDkQY6f507g2lKTMssttpHQPg5atJwlxfJEqdd+WD2AAP4kn6Ct66VRfB3Fz/B2b4Wx+UdAwnETLjKVLgC3u0rlBnoFhQBHcA6QZvLau5gi1iiee5Eryy/B+lMdKeaGrSkR2puk0iaY7UAMqgO1EetAaABPalSVSoAdJnfeioRRUowQ7UQ3oBRA0ChCkO9MKwc3msThLQ3eXyVrYsD+t90IB8hJ1PkKlW9ID0JpEgAqJAA3JqjeN/iN4bxgcY4bsnsvcCQHlgtMg99fvH0getUNxv4n8Y8YKWjKZZ5FqsmLS2JaZA7ED+b1JJrRDjyl3oqlmiv06Y8XPGnhvg7FvsYy9tcrnCChq2ZcC0NK/wCJwjQAdgZO2m4pT4Yspe8SePVxm81dKur5dg+98xZ15yUDQdAASABoBoKpDIK5VgJOw+tb18OGbGE8YsG+6vlauXFWjknf5iSlP/sU08oKCaEjNyaZ2TxbjVMvG+bEsOEc8D+RXc+R7961S7aUpQcaVyqHXofI1a0IdZU24kKQoQpJEgg7gitG4lwbuLK7u2Sp2x3UBJU1690+e46968zzOJKEnlx9e0eh4nJjOKxz79M0/I397bCTzcoEQkyI861XJ5vkaIYUUu6jmgyAa3m8Q2+0SkpUFCRWk5uxCSpSgJG5rJHMn2jesbWkzSru7cU6pQSouE6rVqfaj4axt1ls2xZW4KnXFSTuEJB1WfIfiSB1p02GRyuVbxeIty/dOkgACAB1JPQDqTVz8EcJ2vCmNLfMH754A3NyRqsjYDskSYHmSdTW/jYnnkr6Rj5WVceNLtlZfFkWMf4e8P2zZAcZySAyZ1CQ0sH9KyPAj4g7dm2bwHHVy4EIAFtkSCogdEOgSTHRQB8+9aD8YOa+08T4jCtrlNpbreWJ/qcIAn0CPxqmscVFYVOgr0EEn/WtHnZtp+V7Ppnhcxis1ZJvMRkbW+t1bOMOhY9CQdD5Gs4186OH83lcLcpu8RkLqwuBsth0oMdjB1Hkaufgb4ieJsctFvxHbsZi3EAuABp4DvIEH3EnvTS4rW4sWPIT7Or6EmtL4K8UODeLQ21YZRNveLj+63UNuT2EmFH0JrczWeUXF7VF8ZJq0xjvvQk0idaY0pIyqVMaVACTtRbUAJ9KxM3krXD4a7yt6rlt7RlbzhG8JBJA8zEAd6hK9Ibo9Ca0zjfxR4O4RStvI5RL92nT7Law45PYgGE+5Fcz+IfjfxbxItVjbPfwrHrKoatVFK1p6Ba5k6dBAOum0Vkt1Ti+ZZKlHUknc1shxf8ApmWWdekXjx38ReeySHLXhq0Rh2DI+eohx4juJEJ9gT2NUzl8vkctdqvMnf3V5cL1U4+4VqPlJM1hGP8AKkNtRoK1RxxgqSKHNy9hSI0AJHenZRzkkmAPxNQqJAIE+tY/2m4tnCVp+awTMAfeT+4pm67FSse/ZUSSJ0rGsrxywv7e7YUUvW7yHUEdCCCD9RXoLWXEBSZAInUa/SsG/aSEApSO5NU5I2rRZjlWmfR7hDLNZvhzH5Zkgt3dsh4QZ0UAf1r1yAUkESDpFU78J+d/ivhRj7ZxX9rYlVuQTrygnlPpGnsauMaxXNa20bk9WV5xjwndWi3Mjw+hKkGS9ZEgA+bZOgPkdD0I66AMbnOIbpNlZYu8YWskKXcMqbQgDckkAQPKZ6TVl5nPWOdW/Y2j/NZNOKacWBKH1AwoT1SCCOxIPTfzLnIN4d1u9U+8C0khEOqKI6jlmCPaqJfw8crU06/DTD+XniXi1f6ejwhwfjuFscpi2Hz7p2Dc3ShClnsOyR0H1k0susNpUegE0eC4txnEOOcubB5KlNLLbyAdUK3+hGoPr1BA1vj3JmxwN9dkwGWFuEzsAkk/lWjHjWL+qVUZ55Hlfk92cZ+LWTXxB4lZm85uZAuC03GoCUfdEfQn3rybRstIAABJobEF59x9wlSlqKiT1JMk1mhAEmNfzrfhhSsw5Z26JUoPygojUflUyEiQST3msCL26dLRCrZkHU6FSvTsK9OEgRWmLvpFEo0tsnYdU0eYKII2M1ZfAvjXxdw1yWzt0nKWSIHybslRA7JXMjyEkeVVYVQPPoaJCgkyRNTKEZKmrIjJx2mdg8HeOfB+cShrIrcw1yYBD/3mifJYGnuBVl2lzb3lsm5tLhq4YWJQ40sLSR3BGhr57tPcokdK2DhPjviPhS6D2Dyb9uCQVNE8zaz2Ug6HtMT51lnxE9xdGmHJf+yO7CdKVVZ4KeLLXH7l1jL6yRZZS2bDnKhRKHUSASJ1BBIka6Ea7wqySx+LpmmM01ZaY3qrPiky4xvhVc2iVlLuRfbt0gbwDzq9oRHvVpCuc/jLz1qEYTAJBNykru3CDolBlCR7kK+nnUYFc1YZG1FnOb6gA2rssSfXT9alMSKxXSVsqUO0j1qVCwUBQO9dRdmB7JTEwQCO1MTrt9KjPNOlHAI7HzphRlrAE0wUFJCh1AINJQBB3NR22iCg7oJHtuPwIpW9jLomO2sGoVtJcSQZg7VKP5daY8xJjQdKGr7Js6G+Da/Vb2uTsCrRm4BUP+RwCD7FCvqavPxGzN3aYr+GYsLN9dgpKkDVpB0J8idQPc9K5o+Ei9+R4j3WNUfuXtiowTupCgR+BVXWNxaIS0XHWwVAyVHUn3rl5Y+M39G7FK4plXcOYS7wFi0q7A+StfKEg6oJk/nNar4r5O4tlt2TCipi5PKSN0jrp0IH1q0c7csOW6UuqUEruZ+7uAkH9SB71UfHaW18VWri1uhlSg3yKgpBJAGoAMz510MDksd10Y8yTyV9i8FsTlrXNP3SFBFu8z8txsjeCSk+oJOvYnvXreO96qy8LM5drEKdQm0bSeq3FBJHsnnPsK3HgS0CGnVNpgIBEjvVZ/FxfIRwzgMOD/vFy5eOgHcoSEgn/wAz9KwxvJPfs1uox16OabBstta7mstBEhJielNzJECIHSiASoawRXRiqSRgk7dmR92B1NQsuqUVEiACQPYxTOOfJtlKJ5iBIB39KG3CktpSogkATTXuiK0TKV23pucA6jao1mD+VRqXIpmyKJyoDUHpUKHFKuJmQgEn1Og/WhKjymTpWIHSlpxZP86oHoP85pJSoeMbLK+HfLHHeMGFdU4UtPvG2VrofmJKAD7kH2pVqXhtctM8a4V118MJGQYJWTAQA4JJPkNaVUyj5OyyLpUfQwExXDfjzxCOJvEvMXba+a3ZdNtbkGRyN/dkeRIJ967D8SM3/s7wHmsylXK5bWiy0f8AEIhH/sRXz/vHHEnnJKgZJO9ZuNHuTL80ukhNOCOUqk7U9sZQEnWNPppWLzpWJSQDT2zoDqkTMwRWqMtozuOj0CdBTJUZE1Fz9JpBQBgnWrfIWifmkQBqRQRD0z/MPoR/+/hTgggHegcIgK25TM+XX8Jof2QtaJQes0uYyAKjHUhVOIIkb96kijd/A7IrxXixw/dJXyl25+zmTofmAoA+qhXdd6sfwVS3BJKd6+cuMvnMdlbPINE/MtX0PJg9UKBH5V9DMhcpueH2HmDztvJCkEdQRI+ulY88bkqNOGVRZqDtsHnW0uGENguOKnadgPOOn7Vo3EVqnJ8SlJai0aTypSepPWe/WekVYK0AoUjnCUI1cWdj5/oK1FJF1nVLSkotWAQARqSTuT1JroYoqq9UYskm5Wb74d2Sf4UoKEETzEjUnv8A671zN8WF4lzxCZxyVApsbFCSnoFKKln8Cn6V1XwOubR9JAECYHpXEnjfkzlfFPiG7CuZP2xbKVA6FLcIH4JFYMUPHI/w2zleNP7NKXqQBpTI0OkzQgnmGsipUnQ7aVqTszkTxK1ttGdTzn0H+cVMFdI19KhYPM4470nlHoN/xn6UalgzG9RF+wl9CcVJqIEEmTQurABEx+tAhfMPeolJWCQ76wlsnYa1iuKIabQdNJPqdf1p71XMlLSTqogfU1i3jxLxCRJmABVE5UXRizKZdDbiQnUgzNKobZtTY51mFHvSqYydCySs7S+LTLCw8ME2IXCshettkTqUJBWT6SlP1rj9c85CiIPfauhvjPyIdy+AxIWAGbZ24KZ/41BIP/oa5xW8gyy+CNdFztSYqUEWZNyIbthxs87YPKelQMvf27ZmDJBqV5b9uNZdaOyh0rEfdaXDiBCgQTFLJpO1omKbVHshU60wOutQW7gKAd9KkPf8qvUrVlTVOjJSsAAU6iFCJJ8qxwqT5VJINOpXoVoJlRgAzpofajBCdjUHMUulJ2UJHqP8vyouaY61MZaIkiUq0Ndv+GWYOY8GeFrlKipw2zbCjOpU2ChRPugmuHT/ACyK6d+GjMLuPCsYxCyXbTLONJSDryLb5x7Elf0NJKNtDRdJlmZNwu/3O3ICRqtZMDTcnyFeLZIRcX4ZYBFu0SeY9T1Uf0FZ1+4Y+wW/31rIDih/Uew8hUNmgfNFlawoAytY/qI6nyFbI6Rle2bfiMg3jsVlL9QAZtLNb5nQQgEmfpXAeUunLm9dfdUVOOLK1E6ySZJ+prsDxazSMR4WcRBlZHzbH7Kg7FZcWhBP/iVewrjNxfMqetZHGpN/ZpTuKX0OJBMSKd9ZbaUrckQPU7UKTrUbqg4+hudEfeP5D9T7UN6BLZO2UttpRMwI9+pplqgE/jQEzqdKgu3oQQNu9DlSBRtkTzpUuAdKNCtJrBb5lLKuUx36VOVcoImCBrVCley1x9Ebzo+0Ak/ygn3iB+dFaNAf2zg1OomsNLiS+tStQI0o/nOPLCGkk+Q6VWpK7ZY4uqMxfM6sQqAKVQqCmglKlAuK6DpSqzy/BK/S7fiu/iD/AIu3kW9w42xbMNNkNkgAoCiBp3UfrVSuWF2tMrsbkg7ENHT8KVKoj/ihn2yFdjlLdMpsrlbZ3Hyj+1YlxjrpYLjVjdIPVPylfhpSpVVkeiYmRZWd+WxNjc+Z+Uf2rNFhfQD9iuY/6R/alSqzG3SEmlY4sL6dLK5/+o/tRmwv4H9yuR/2j+1KlVqbK6InrLIBPN9iupSZ/wDiPv07TUyLG+I0srmO/wAs/tSpUJ7Ga0Gmwv4P9yuZ/wCkf2q1vhwyN/jsvkcOq1uEi8LbyCpsgAoC0mDG55x9KVKrYbaKpdMvl5D1uksNtOKuHIDhCToD/SD+f071kW1u4yfsrLSlOr0cUEn/AMR5DrSpVot6KWkVh8T1xcs8M47D2rbzhfuS48UoJBCExGg2lYPqPKuczY3pVJsrk/8AaP7UqVZ8rdl2NaD+xXoBJs7mB/hH9qw2rLI8y3TZXJ5zI/slSANun+ppUqpm3aLIpUx1sZCP9xuSB0Lav2rGdtMko6WVyD5Mn84pUqrk2WxSA/h2RnmNldE+bSv2pnLG/DZIsroz/hH9qVKkY3sxrbE5J90gWNyEzJJaVA/CsxVrfMJ+Ra4+6KjuoMmT+FKlUR1GyZblQmsZfW6S+9ZXKnDsC0T+lKlSp7oras//2Q==" alt="Surya Partap Singh" class="about-photo">
+      <table class="kv-table">
+        <tr><td>name</td><td>Surya Partap Singh</td></tr>
+        <tr><td>title</td><td>Snr Data Engineer</td></tr>
+        <tr><td>location</td><td>Dallas, TX</td></tr>
+        <tr><td>employer</td><td>Cencora</td></tr>
+        <tr><td>education</td><td>BS CS &middot; UNA</td></tr>
+        <tr><td>status</td><td class="v-accent">open = true</td></tr>
+      </table>
+    </aside>
+  </div>
+</section>
+
+<section id="skills" class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="idx">04</span> skills.json</div>
+    <div class="section-meta">technical stack</div>
+  </div>
+  <div class="skills-inner">
+    <div class="skill-col">
+      <div class="skill-cat">// languages</div>
+      <div class="skill-row">python<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span></div></div>
+      <div class="skill-row">pyspark<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span></div></div>
+      <div class="skill-row">sql<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span></div></div>
+      <div class="skill-row">c++<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip"></span><span class="pip"></span></div></div>
+      <div class="skill-gap">
+        <div class="skill-cat">// distributed</div>
+        <div class="skill-row">apache spark<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span></div></div>
+        <div class="skill-row">hadoop / hive<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip"></span></div></div>
+        <div class="skill-row">apache flink<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip"></span><span class="pip"></span></div></div>
+      </div>
+    </div>
+    <div class="skill-col">
+      <div class="skill-cat">// orchestration</div>
+      <div class="skill-row">databricks jobs<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span></div></div>
+      <div class="skill-row">azure data factory<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span></div></div>
+      <div class="skill-row">airflow<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip"></span></div></div>
+      <div class="skill-row">dagster<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip"></span><span class="pip"></span></div></div>
+      <div class="skill-row">prefect<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip"></span><span class="pip"></span></div></div>
+      <div class="skill-gap">
+        <div class="skill-cat">// devops</div>
+        <div class="skill-row">github actions<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span></div></div>
+        <div class="skill-row">azure devops<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip"></span></div></div>
+        <div class="skill-row">arm templates<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip"></span></div></div>
+      </div>
+    </div>
+    <div class="skill-col">
+      <div class="skill-cat">// storage</div>
+      <div class="skill-row">azure data lake<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span></div></div>
+      <div class="skill-row">delta lake<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span></div></div>
+      <div class="skill-row">azure sql<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip"></span></div></div>
+      <div class="skill-row">hdfs<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip"></span></div></div>
+      <div class="skill-row">aws s3<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip"></span><span class="pip"></span></div></div>
+      <div class="skill-gap">
+        <div class="skill-cat">// quality</div>
+        <div class="skill-row">great expectations<div class="pips"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="resume" class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="idx">05</span> resume.txt</div>
+  </div>
+  <div class="resume-inner">
+    <div class="resume-entry">
+      <div class="re-date">feb 2023<br>&rarr;<br><span class="now">present</span></div>
+      <div class="re-body">
+        <div class="re-role">Senior Data Engineer</div>
+        <div class="re-co">Cencora &middot; Dallas, TX</div>
+        <ul class="re-list">
+          <li>Led build of Medallion Lakehouse on Databricks + Delta Lake &mdash; unified clinical, financial, and pharmacy data at 5&ndash;10 TB/day with CDF, schema enforcement, Z-Order clustering</li>
+          <li>Reduced financial reporting latency from 24 hours to 15 minutes via event-driven incremental pipeline using Delta Lake CDF</li>
+          <li>Led a team of 3&ndash;5 engineers &mdash; set ETL standards, code review practices, and data governance guidelines adopted org-wide</li>
+          <li>+30% pipeline throughput via Spark optimization: partitioning, broadcast joins, caching, and executor tuning</li>
+          <li>Built CI/CD (GitHub Actions, Azure DevOps), ARM Templates IaC, and Great Expectations data quality gates</li>
+        </ul>
+      </div>
+    </div>
+    <div class="resume-entry">
+      <div class="re-date">may 2021<br>&rarr;<br>feb 2023</div>
+      <div class="re-body">
+        <div class="re-role">Data Engineer <span style="color:var(--dim);font-weight:300;">(contract)</span></div>
+        <div class="re-co">Cencora &middot; Dallas, TX</div>
+        <ul class="re-list">
+          <li>Built scalable ingestion and transformation pipelines using Databricks, ADF, and PySpark</li>
+          <li>Created canonical source-of-truth tables for analytics and operational reporting, adopted org-wide</li>
+          <li>Processed large-scale clinical, financial, and pharmacy datasets from diverse upstream sources</li>
+        </ul>
+      </div>
+    </div>
+    <div class="resume-entry">
+      <div class="re-date">feb 2021<br>&rarr;<br>may 2021</div>
+      <div class="re-body">
+        <div class="re-role">Data Engineer</div>
+        <div class="re-co">Fuge Technologies &middot; DFW, TX</div>
+        <ul class="re-list">
+          <li>Built Hadoop/Hive batch pipelines and optimized query performance on distributed datasets</li>
+          <li>Ingested data into Azure Data Lake via Azure Data Factory</li>
+        </ul>
+      </div>
+    </div>
+    <div class="resume-entry">
+      <div class="re-date">aug 2018<br>&rarr;<br>dec 2020</div>
+      <div class="re-body">
+        <div class="re-role">B.S. Computer Science</div>
+        <div class="re-co">University of North Alabama &middot; Florence, AL</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="idx">06</span> contact.sh</div>
+    <div class="section-meta">reply within 1 business day</div>
+  </div>
+  <div class="contact-inner">
+    <div class="contact-left">
+      <div class="con-lbl">// reach_me_at</div>
+      <div class="con-row"><span class="con-k">email</span><span class="con-v"><a href="mailto:psurya.924@gmail.com">psurya.924@gmail.com</a></span></div>
+      <div class="con-row"><span class="con-k">linkedin</span><span class="con-v"><a href="https://linkedin.com/in/surya6032/" target="_blank" rel="noopener">linkedin.com/in/surya6032</a></span></div>
+      <div class="con-row"><span class="con-k">location</span><span class="con-v">Dallas, TX &middot; remote OK &middot; DFW hybrid</span></div>
+      <div class="con-row"><span class="con-k">status</span><span class="con-v green">open_to_work = true</span></div>
+    </div>
+    <div class="contact-right">
+      <div class="con-lbl">// target_roles</div>
+      <div class="role-card"><div class="rc-k">role_level</div><div class="rc-v">Senior / Staff / Principal Data Engineer or Data Architect</div></div>
+      <div class="role-card"><div class="rc-k">domain_fit</div><div class="rc-v">Healthcare, pharma, financial services, or data-intensive platforms where reliability matters</div></div>
+      <div class="role-card"><div class="rc-k">stack_fit</div><div class="rc-v">Databricks, Spark, Azure or AWS, Python/PySpark. Open to GCP.</div></div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <span class="foot-l">surya_partap_singh &middot; snr data engineer &middot; dallas, tx &middot; 2026</span>
+  <div class="foot-links">
+    <a href="mailto:psurya.924@gmail.com">email</a>
+    <a href="https://linkedin.com/in/surya6032/" target="_blank" rel="noopener">linkedin</a>
+  </div>
+</footer>
+
+<script>
+(function() {
+  var root = document.documentElement;
+  var btn  = document.getElementById('themeBtn');
+  var icon = document.getElementById('themeIcon');
+  var lbl  = document.getElementById('themeLabel');
+
+  function setTheme(t) {
+    root.setAttribute('data-theme', t);
+    icon.textContent = (t === 'dark') ? '☀' : '◗';
+    lbl.textContent  = (t === 'dark') ? 'light'  : 'dark';
+    try { localStorage.setItem('theme', t); } catch(e) {}
+  }
+
+  // Read saved preference or system preference
+  var initial = 'dark';
+  try {
+    var stored = localStorage.getItem('theme');
+    if (stored === 'dark' || stored === 'light') {
+      initial = stored;
+    } else if (window.matchMedia && !window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      initial = 'light';
+    }
+  } catch(e) {}
+  setTheme(initial);
+
+  btn.addEventListener('click', function() {
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  // Case panels
+  window.toggleCase = function(panelId, itemId) {
+    var panel = document.getElementById(panelId);
+    var item  = document.getElementById(itemId);
+    var row   = item.querySelector('.proj-row');
+    var wasOpen = panel.classList.contains('open');
+    document.querySelectorAll('.case-panel.open').forEach(function(p){ p.classList.remove('open'); });
+    document.querySelectorAll('.proj-item.open').forEach(function(i){ i.classList.remove('open'); });
+    document.querySelectorAll('.proj-row[aria-expanded="true"]').forEach(function(r){ r.setAttribute('aria-expanded','false'); });
+    if (!wasOpen) {
+      panel.classList.add('open');
+      item.classList.add('open');
+      row.setAttribute('aria-expanded','true');
+      setTimeout(function(){ panel.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 60);
+    }
+  };
+
+  // Keyboard support
+  document.querySelectorAll('.proj-row').forEach(function(r){
+    r.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); r.click(); }
+    });
+  });
+
+  // Hamburger
+  var burger = document.getElementById('hamburger');
+  var menu   = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      menu.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded','false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Active nav highlight
+  var navAs = document.querySelectorAll('.nav-links a');
+  var sects = document.querySelectorAll('section[id]');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) {
+        navAs.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id); });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sects.forEach(function(s){ io.observe(s); });
+})();
+</script>
+</body>
+</html>
