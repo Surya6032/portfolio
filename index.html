@@ -459,72 +459,72 @@
     }
     .fade-in.visible { opacity: 1; transform: none; }
 
-    /* RESPONSIVE */
+    /* ── HAMBURGER BUTTON ── */
+    .menu-btn {
+      display: none;
+      width: 36px; height: 36px;
+      align-items: center; justify-content: center;
+      border-radius: 6px; border: 1px solid var(--border);
+      background: var(--bg-2); color: var(--text-3);
+      cursor: pointer; flex-shrink: 0;
+    }
+    .menu-btn svg { width: 18px; height: 18px; }
+    .menu-btn .bar { transition: transform 0.2s, opacity 0.2s; }
+
+    /* Mobile nav drawer */
+    .mobile-nav {
+      display: none;
+      position: fixed; top: 56px; left: 0; right: 0; z-index: 99;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px 20px;
+      flex-direction: column; gap: 4px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 0.95rem; color: var(--text-2);
+      padding: 10px 12px; border-radius: 8px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .mobile-nav a:hover { background: var(--bg-2); color: var(--text); }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 720px) {
-      .hero-layout,
-      .about-layout { grid-template-columns: 1fr; }
-      .hero-photo,
-      .about-photo { width: 120px; border-radius: 10px; }
-      .hero-photo { order: -1; margin-bottom: 4px; }
-      .exp-item { grid-template-columns: 1fr; gap: 6px; }
+      .hero-layout { grid-template-columns: 1fr; gap: 28px; }
+      .about-layout { grid-template-columns: 1fr; gap: 28px; }
+      .hero-photo { order: -1; width: 96px; border-radius: 50%; margin-bottom: 8px; }
+      .about-photo { width: 100px; border-radius: 10px; }
+      .exp-item { grid-template-columns: 1fr; gap: 4px; }
       .work-cols { grid-template-columns: 1fr; }
       .skill-row { grid-template-columns: 1fr; gap: 4px; }
       .principle { grid-template-columns: 1fr; gap: 4px; }
-      .hero-stats { gap: 16px; }
+      .hero-stats { flex-wrap: wrap; gap: 14px; }
       .hero-stat { border-right: none; padding-right: 0; margin-right: 0; }
+      .nav-links { display: none; }
+      .menu-btn { display: flex; }
+      .work-right { flex-direction: column; align-items: flex-end; gap: 4px; }
     }
 
     @media (max-width: 520px) {
-      .container, .nav-inner, .footer-inner { padding-left: 20px; padding-right: 20px; }
-      .hero { padding: 48px 0 44px; }
-      section { padding: 40px 0; }
+      .container, .nav-inner, .footer-inner { padding-left: 16px; padding-right: 16px; }
+      .hero { padding: 40px 0 36px; }
+      section { padding: 36px 0; }
+      .hero-name { font-size: clamp(1.7rem, 7vw, 2.2rem); }
+      .work-toggle { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .work-right { flex-direction: row; align-items: center; gap: 8px; align-self: flex-start; }
+      .work-summary { font-size: 0.82rem; }
+      .exp-copy { font-size: 0.84rem; }
+      .contact-link-label { width: 52px; font-size: 0.7rem; }
+      .footer-inner { flex-direction: column; gap: 6px; text-align: center; }
+      .edu-row { flex-direction: column; gap: 6px; }
     }
-  
-  /* Education */
-  .edu-block {
-    border-top: 1px solid var(--line);
-    padding-top: 28px;
-  }
-  .edu-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 24px;
-  }
-  .edu-degree {
-    font-size: 1.05rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: var(--text);
-    margin-bottom: 4px;
-  }
-  .edu-school {
-    font-size: 0.95rem;
-    color: var(--muted);
-    margin-bottom: 10px;
-  }
-  .edu-courses {
-    font-size: 0.9rem;
-    color: var(--muted);
-    line-height: 1.6;
-    max-width: 620px;
-  }
-  .edu-date {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.85rem;
-    color: var(--muted);
-    white-space: nowrap;
-    padding-top: 3px;
-  }
-  @media (max-width: 600px) {
-    .edu-row {
-      flex-direction: column;
-      gap: 8px;
-    }
-  }
 
-  
-    /* ── Chess Section ──────────────────────────────── */
+    @media (max-width: 380px) {
+      .container, .nav-inner, .footer-inner { padding-left: 12px; padding-right: 12px; }
+      .hero-name { font-size: 1.55rem; }
+    }
+	    /* ── Chess Section ──────────────────────────────── */
     #chess { padding-top: 56px; padding-bottom: 72px; border-top: 1px solid var(--border);  }
 
     .chess-block {
@@ -583,7 +583,6 @@
       color: var(--text);
       border-color: var(--text);
     }
-
   </style>
 </head>
 <body>
@@ -611,8 +610,24 @@
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
           </svg>
         </button>
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line class="bar bar1" x1="3" y1="6" x2="21" y2="6"/>
+            <line class="bar bar2" x1="3" y1="12" x2="21" y2="12"/>
+            <line class="bar bar3" x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
       </div>
     </div>
+    <!-- Mobile nav drawer -->
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+      <a href="#work" onclick="closeMobileNav()">Work</a>
+      <a href="#experience" onclick="closeMobileNav()">Experience</a>
+      <a href="#education" onclick="closeMobileNav()">Education</a>
+      <a href="#about" onclick="closeMobileNav()">About</a>
+      <a href="#contact" onclick="closeMobileNav()">Contact</a>
+      <a href="#chess" onclick="closeMobileNav()">Chess</a>
+    </nav>
   </header>
 
   <main id="top">
@@ -1038,7 +1053,29 @@
   
 
     
-  </script>
+  
+  // ── Mobile nav ──
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileNav = document.getElementById('mobileNav');
+
+  function closeMobileNav() {
+    mobileNav.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  // Close drawer on outside click
+  document.addEventListener('click', (e) => {
+    if (!menuBtn.contains(e.target) && !mobileNav.contains(e.target)) {
+      closeMobileNav();
+    }
+  });
+
+</script>
 
 </body>
 </html>
