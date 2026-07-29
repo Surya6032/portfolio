@@ -278,7 +278,7 @@
       justify-content: center;
       width: 100%;
       height: 100%;
-      color: inherit;
+      /* color set explicitly per piece in JS — never inherited */
     }
     .file-labels {
       display: flex;
@@ -540,7 +540,7 @@
       <div class="move-log" id="moveLog"></div>
     </div>
     <div class="side-note">
-      <strong>Surya's Bot </strong><br>
+      <strong>Surya's Bot</strong><br>
       Built in vanilla JavaScript with minimax, alpha-beta pruning,
 	  legal move generation, promotion handling, castling, en passant,
 	  and a simple positional evaluation function.
@@ -975,6 +975,14 @@ function renderBoard() {
       const piece=document.createElement('span');
       piece.className='piece';
       piece.textContent=GLYPHS[board[i]];
+      // Explicit color — never inherited, immune to dark/light mode
+      if(board[i][0]==='w'){
+        piece.style.color='#ffffff';
+        piece.style.textShadow='0 0 2px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.7)';
+      } else {
+        piece.style.color='#1a1a18';
+        piece.style.textShadow='0 0 1px rgba(255,255,255,0.3)';
+      }
       sq.appendChild(piece);
     }
     sq.addEventListener('click',()=>handleClick(i));
@@ -1057,11 +1065,26 @@ function renderMoveLog() {
 }
 
 function renderCaptured() {
-  // Show pieces captured by each side
-  const botEl=document.getElementById('botCaptured');
-  const youEl=document.getElementById('yourCaptured');
-  botEl.textContent = capturedByBot.map(p=>GLYPHS['w'+p]).join(' ');
-  youEl.textContent = capturedByYou.map(p=>GLYPHS['b'+p]).join(' ');
+  // Build spans with explicit colors — immune to dark mode
+  function makeCapturedSpans(el, pieces, side){
+    el.innerHTML='';
+    pieces.forEach(p=>{
+      const s=document.createElement('span');
+      s.textContent=GLYPHS[side+p]+' ';
+      s.style.fontFamily="'ChessMerida', serif";
+      s.style.fontSize='0.9rem';
+      if(side==='w'){
+        s.style.color='#ffffff';
+        s.style.textShadow='0 0 2px rgba(0,0,0,0.8)';
+      } else {
+        s.style.color='#1a1a18';
+        s.style.textShadow='0 0 1px rgba(255,255,255,0.2)';
+      }
+      el.appendChild(s);
+    });
+  }
+  makeCapturedSpans(document.getElementById('botCaptured'), capturedByBot, 'w');
+  makeCapturedSpans(document.getElementById('yourCaptured'), capturedByYou, 'b');
 }
 
 // ─── INTERACTION ─────────────────────────────────────────────────────────────
@@ -1107,9 +1130,14 @@ function showPromotion(side) {
     span.className='promo-piece';
     span.textContent=GLYPHS[side+t];
 
-    span.style.filter = side==='w'
-      ? 'drop-shadow(0 2px 6px rgba(0,0,0,0.8))'
-      : 'drop-shadow(0 2px 6px rgba(255,255,255,0.4))';
+    // Explicit color on promo pieces — immune to dark mode inheritance
+    if(side==='w'){
+      span.style.color='#ffffff';
+      span.style.textShadow='0 0 2px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.7)';
+    } else {
+      span.style.color='#1a1a18';
+      span.style.textShadow='0 0 1px rgba(255,255,255,0.3)';
+    }
     span.addEventListener('click',()=>{
       overlay.classList.remove('show');
       executeMove(pendingPromo, t);
