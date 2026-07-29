@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Play Chess — Surya's Bot</title>
   <style>
+    /* ── CHESS MERIDA FONT (jsDelivr CDN) ── */
+    @font-face {
+      font-family: 'ChessMerida';
+      src: url('https://cdn.jsdelivr.net/npm/chess-merida-font@0.0.3/fonts/chessmerida-webfont.woff') format('woff'),
+           url('https://cdn.jsdelivr.net/npm/chess-merida-font@0.0.3/fonts/chessmerida-webfont.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
     :root {
       --bg: #f9f8f6;
       --surface: #ffffff;
@@ -259,7 +268,8 @@
       pointer-events: none;
     }
     .piece {
-      font-size: clamp(24px, 10.5vw, 52px);
+      font-family: 'ChessMerida', serif;
+      font-size: clamp(26px, 10.8vw, 54px);
       line-height: 1;
       pointer-events: none;
       user-select: none;
@@ -268,6 +278,7 @@
       justify-content: center;
       width: 100%;
       height: 100%;
+      color: inherit;
     }
     .file-labels {
       display: flex;
@@ -297,6 +308,7 @@
     }
     .promo-overlay.show { display: flex; }
     .promo-piece {
+      font-family: 'ChessMerida', serif;
       font-size: 3rem;
       cursor: pointer;
       filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
@@ -528,7 +540,7 @@
       <div class="move-log" id="moveLog"></div>
     </div>
     <div class="side-note">
-      <strong>Surya's Bot</strong><br>
+      <strong>Surya's Bot </strong><br>
       Built in vanilla JavaScript with minimax, alpha-beta pruning,
 	  legal move generation, promotion handling, castling, en passant,
 	  and a simple positional evaluation function.
@@ -552,7 +564,7 @@
     </svg>
   </div>
   <div class="player-info">
-    <div class="player-name">You </div>
+    <div class="player-name">You</div>
     <div class="captured" id="yourCaptured"></div>
   </div>
   <div class="player-color-dot dot-white"></div>
@@ -560,11 +572,12 @@
 
 <script>
 // ─── PIECES ─────────────────────────────────────────────────────────────────
+// Chess Merida font character map
 const GLYPHS = {
-  wK:'♔', wQ:'♕', wR:'♖', wB:'♗', wN:'♘', wP:'♙',
-  bK:'♚', bQ:'♛', bR:'♜', bB:'♝', bN:'♞', bP:'♟'
+  wK:'k', wQ:'q', wR:'r', wB:'b', wN:'n', wP:'p',
+  bK:'l', bQ:'w', bR:'t', bB:'v', bN:'m', bP:'o'
 };
-const PIECE_VAL_DISPLAY = { P:'♙', N:'♘', B:'♗', R:'♖', Q:'♕' };
+const PIECE_VAL_DISPLAY = { P:'p', N:'n', B:'b', R:'r', Q:'q' };
 
 // ─── STATE ───────────────────────────────────────────────────────────────────
 let board, turn, castling, epSquare;
@@ -961,21 +974,7 @@ function renderBoard() {
     if(board[i]){
       const piece=document.createElement('span');
       piece.className='piece';
-      const pieceColor = clr(board[i]);
-      const pieceType = ptype(board[i]);
       piece.textContent=GLYPHS[board[i]];
-      // Explicit colors — never inherit from body (dark mode fix)
-      if(pieceColor==='w'){
-        piece.style.color='#ffffff';
-        piece.style.filter='drop-shadow(0 1px 3px rgba(0,0,0,0.8))';
-      } else {
-        piece.style.color='#1a1a18';
-        piece.style.filter='drop-shadow(0 1px 2px rgba(255,255,255,0.35))';
-      }
-      // Black pawn ♟ renders ~15% oversized on mobile WebKit — correct it
-      if(pieceColor==='b' && pieceType==='P'){
-        piece.style.transform='scale(0.82)';
-      }
       sq.appendChild(piece);
     }
     sq.addEventListener('click',()=>handleClick(i));
@@ -1018,10 +1017,10 @@ function showGameOver(result) {
   const sub=document.getElementById('gameoverSub');
   const overlay=document.getElementById('gameoverOverlay');
   if(result==='checkmate-b'){
-    title.textContent='You won! ♔';
+    title.textContent='You won!';
     sub.textContent='Checkmate — the bot resigns.';
   } else if(result==='checkmate-w'){
-    title.textContent='Bot wins ♚';
+    title.textContent='Bot wins';
     sub.textContent='Checkmate — good game.';
   } else {
     title.textContent='Draw';
@@ -1107,7 +1106,7 @@ function showPromotion(side) {
     const span=document.createElement('span');
     span.className='promo-piece';
     span.textContent=GLYPHS[side+t];
-    span.style.color = side==='w' ? '#ffffff' : '#1a1a18';
+
     span.style.filter = side==='w'
       ? 'drop-shadow(0 2px 6px rgba(0,0,0,0.8))'
       : 'drop-shadow(0 2px 6px rgba(255,255,255,0.4))';
