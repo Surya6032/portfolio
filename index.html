@@ -491,10 +491,21 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 720px) {
-      .hero-layout { grid-template-columns: 1fr; gap: 28px; }
-      .about-layout { grid-template-columns: 1fr; gap: 28px; }
-      .hero-photo { order: -1; width: 96px; border-radius: 50%; margin-bottom: 8px; }
-      .about-photo { width: 100px; border-radius: 10px; }
+      .hero-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .hero-layout > div:last-child {
+        order: -1;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      .about-layout { grid-template-columns: 1fr; gap: 0; }
+      .hero-photo { width: 110px; height: 110px; border-radius: 50%; margin: 0 auto; display: block; }
+      .about-photo { display: none; }
       .exp-item { grid-template-columns: 1fr; gap: 4px; }
       .work-cols { grid-template-columns: 1fr; }
       .skill-row { grid-template-columns: 1fr; gap: 4px; }
@@ -524,8 +535,7 @@
       .container, .nav-inner, .footer-inner { padding-left: 12px; padding-right: 12px; }
       .hero-name { font-size: 1.55rem; }
     }
-	    /* ── Chess Section ──────────────────────────────── */
-    #chess { padding-top: 56px; padding-bottom: 72px; border-top: 1px solid var(--border);  }
+	   #chess { padding-top: 56px; padding-bottom: 72px; border-top: 1px solid var(--border);  }
 
     .chess-block {
       display: flex;
@@ -938,9 +948,7 @@
             </div>
           </div>
 
-          <div>
-            <img class="about-photo" src="profile.jpeg" alt="Surya Partap Singh" />
-          </div>
+          
         </div>
       </div>
     </section>
@@ -980,6 +988,7 @@
 
   
   <!-- ═══════════════════════════════════════════════════════ CHESS SECTION -->
+
     <section id="chess">
   <div class="container">
     <p class="section-label">Chess</p>
